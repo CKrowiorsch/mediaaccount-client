@@ -2,7 +2,11 @@
 {
     public class Article
     {
+        /// <summary> </summary>
         public string Id { get; set; }
+
+        /// <summary>  </summary>
+        public Auftrag Auftrag { get; set; }
 
         public int AnzahlSeiten { get; set; }
         public string MedienblattId { get; set; }
@@ -30,7 +34,9 @@
         public string Erscheinungsdatum { get; set; }
         public string UpdateDatum { get; set; }
         public string Digitalisierungsdatum { get; set; }
-        public Auftrag Auftrag { get; set; }
+        
+        
+        
         public Inhalt Inhalt { get; set; }
         public Publikation Publikation { get; set; }
         
