@@ -7,8 +7,8 @@
         public string TvSenderName { get; set; }
         public string PublikationsLand { get; set; }
         public int Reichweite { get; set; }
-        public long Visits { get; set; }
-        public long PageImpressions { get; set; }
+        public long? Visits { get; set; }
+        public long? PageImpressions { get; set; }
         public int VerkaufteAuflage { get; set; }
         public int VerbreiteteAuflage { get; set; }
         public int GedruckteAuflage { get; set; }
@@ -22,11 +22,11 @@
         public double WerbepreisC2 { get; set; }
         public double WerbepreisC3 { get; set; }
         public double WerbepreisC4 { get; set; }
-        public decimal Bannerpreis { get; set; }
-        public decimal BannerpreisBasis { get; set; }
+        public decimal? Bannerpreis { get; set; }
+        public decimal? BannerpreisBasis { get; set; }
         
         public string SendungsName { get; set; }
-        public decimal Sendungslaenge { get; set; }
+        public decimal? Sendungslaenge { get; set; }
         public string Ausgabennummer { get; set; }
         public string Erscheinungszyklus { get; set; }
         public string ErscheinungszyklusEnglisch { get; set; }
