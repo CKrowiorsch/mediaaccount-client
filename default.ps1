@@ -16,7 +16,8 @@ task help {
 	write-host "Tasks: rebuild"
 }
 
-task clean -depends NugetRestore {[void](rmdir -force -recurse $outdir -ea SilentlyContinue)
+task clean {
+  [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
 }
 
 task nuget-restore {
@@ -27,4 +28,3 @@ task rebuild -depends clean,nuget-restore {
   $solution = get-location;
   exec { msbuild /nologo /v:minimal /t:rebuild /p:"Configuration=Release;OutputPath=$bindir/MediaAccount.Client/;SolutionDir=$solution/" "Source/MediaAccount.Client/MediaAccount.Client.csproj" }
 }
-
