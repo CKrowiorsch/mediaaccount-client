@@ -32,6 +32,25 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
+        public async Task<Article[]> GetList()
+        {
+            // http://test.api.media-account2.de:80/api/v2/Articles?typ=Importdatum&von=1&bis=2
+            // ImportDatum
+            // Erscheinungsdatum
+            // Selektionsdatum
+            // Lieferdatum
+            // Updatedatum
+            // Digitalisierungsdatum
+
+            // von Datetime
+            // bis Datetime
+
+            // page: number
+
+            return null;
+
+        }
+
         HttpRequestMessage Create(string endpoint)
         {
             var message = new HttpRequestMessage(HttpMethod.Get, endpoint);
