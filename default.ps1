@@ -9,6 +9,7 @@ properties {
 }
 
 task default -depends help
+task ci -depends rebuild
 
 
 task help {
