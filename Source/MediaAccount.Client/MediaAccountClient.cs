@@ -13,6 +13,8 @@ namespace Krowiorsch.MediaAccount
         readonly string _apiKey;
         readonly HttpClient _httpClient;
 
+        readonly ArticleListDeserializer _deserializer = new ArticleListDeserializer();
+
         public MediaAccountClient(string apiKey, Uri baseEndpoint)
         {
             _apiKey = apiKey;
@@ -33,17 +35,13 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-        public async Task<Article[]> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 1)
+        public async Task<ArticleListResponse> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 1)
         {
             var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).Create(dateType, start, end, page);
-
             var result = await _httpClient.SendAsync(request);
-
             result.EnsureSuccessStatusCode();
-
             var json = await result.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Article[]>(json);
+            return _deserializer.Deserialize(json);
 
             // http://test.api.media-account2.de:80/api/v2/Articles?typ=Importdatum&von=1&bis=2
             // ImportDatum

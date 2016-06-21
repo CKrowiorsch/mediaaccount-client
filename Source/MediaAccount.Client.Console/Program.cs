@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Krowiorsch.MediaAccount.RequestBuilder;
+using Serilog;
 
 namespace Krowiorsch.MediaAccount
 {
@@ -9,6 +10,10 @@ namespace Krowiorsch.MediaAccount
 
         public static void Main()
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.LiterateConsole()
+                .CreateLogger();
+
             var client = new IntializeClient().GetClient();
 
             //Console.WriteLine("ArticleId");
@@ -16,13 +21,13 @@ namespace Krowiorsch.MediaAccount
 
             //var article = client.GetByIdAsync(long.Parse(articleId)).Result;
 
-            var articles = client.GetList(RequestDateType.Erscheinungsdatum,
+            var response = client.GetList(RequestDateType.Erscheinungsdatum,
                 DateTimeOffset.Now.Date.AddDays(-1),
                 DateTimeOffset.Now.Date,
                 1).Result;
 
-
-            Console.WriteLine(articles.Count());
+            response.Items.ForEach(i => Log.Information("Article:{id} - Headline:{headline}", i.Id, i.Inhalt.Headline));
+            
 
             Console.Read();
             Console.WriteLine();

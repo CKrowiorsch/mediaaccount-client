@@ -8,7 +8,7 @@
         /// <summary>  </summary>
         public Auftrag Auftrag { get; set; }
 
-        public int AnzahlSeiten { get; set; }
+        public int? AnzahlSeiten { get; set; }
         public string MedienblattId { get; set; }
         public string MedienblattLink { get; set; }
         
@@ -23,11 +23,15 @@
         public string PositionAufSeite { get; set; }
         public object Genre { get; set; }
         public string Farbigkeit { get; set; }
-        public double Anzeigenaequivalenzwert { get; set; }
-        public double Artikelgroesse { get; set; }
+        public double? Anzeigenaequivalenzwert { get; set; }
+        public double? Artikelgroesse { get; set; }
         public bool IsHaupttreffer { get; set; }
-        public int HaupttrefferId { get; set; }
-        public bool IsDigitized { get; set; }
+        public int? HaupttrefferId { get; set; }
+        
+        /// <summary> return, if the article is digital available </summary>
+        // TODO: why nullable
+        public bool? IsDigitized { get; set; }
+
         public string Lieferdatum { get; set; }
         public string Importdatum { get; set; }
         public string Selektionsdatum { get; set; }

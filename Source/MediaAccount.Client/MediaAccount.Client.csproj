@@ -54,8 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleListDeserializer.cs" />
     <Compile Include="MediaAccountClient.cs" />
     <Compile Include="Model\Article.cs" />
+    <Compile Include="Model\ArticleListResponse.cs" />
     <Compile Include="Model\Auftrag.cs" />
     <Compile Include="Model\Inhalt.cs" />
     <Compile Include="RequestBuilder\BaseRequestBuilder.cs" />
