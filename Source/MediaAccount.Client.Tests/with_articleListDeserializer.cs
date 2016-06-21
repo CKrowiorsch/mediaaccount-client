@@ -24,6 +24,6 @@ namespace Krowiorsch.MediaAccount
         It should_have_a_nextLink = () =>
             _result.NextPageLink.ShouldEqual("http://test.api.media-account2.de/api/v2/Articles?typ=Erscheinungsdatum&von=1466377200&bis=1466463600&page=2");
 
-        static ArticleListResponse _result;
+        static ArticleListScroll _result;
     }
 }

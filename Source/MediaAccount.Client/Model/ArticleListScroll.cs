@@ -1,6 +1,6 @@
 ﻿namespace Krowiorsch.MediaAccount.Model
 {
-    public class ArticleListResponse
+    public class ArticleListScroll
     {
         public Article[] Items { get; set; } 
 

@@ -5,9 +5,9 @@ namespace Krowiorsch.MediaAccount
 {
     public class ArticleListDeserializer
     {
-        public ArticleListResponse Deserialize(string json)
+        public ArticleListScroll Deserialize(string json)
         {
-            return JsonConvert.DeserializeObject<ArticleListResponse>(json);
+            return JsonConvert.DeserializeObject<ArticleListScroll>(json);
         } 
     }
 }
