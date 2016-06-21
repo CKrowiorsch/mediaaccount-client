@@ -25,6 +25,16 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
         }
 
+        public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end)
+        {
+            return string.Format("{0}api/v2/Articles?typ={1}&von={2}&bis={3}",
+                _endpoint,
+                dateType,
+                ToUnixTimeStamp(start),
+                ToUnixTimeStamp(end));
+        }
+
+
         public static long ToUnixTimeStamp(DateTimeOffset dateTime)
         {
             var ts = dateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;

@@ -37,7 +37,7 @@ namespace Krowiorsch.MediaAccount
 
 
 
-        public async Task<ArticleListScroll> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 1)
+        public async Task<ArticleListScroll> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 0)
         {
             var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).Create(dateType, start, end, page);
             var result = await _httpClient.SendAsync(request);
@@ -62,6 +62,14 @@ namespace Krowiorsch.MediaAccount
 
             return null;
         }
+
+
+        public ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end)
+        {
+            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end);
+            return new ArticleListScroll(this) { NextPageLink = request };
+        }
+
 
         internal async Task<bool> MoveScroll(ArticleListScroll scroll)
         {

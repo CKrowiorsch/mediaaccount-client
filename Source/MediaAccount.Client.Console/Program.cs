@@ -23,25 +23,17 @@ namespace Krowiorsch.MediaAccount
 
             int count = 0;
 
-            var response = client.GetList(RequestDateType.Importdatum,
-                //DateTimeOffset.Now.Date.AddDays(-1),
-                DateTimeOffset.Now.AddHours(-2),
-                DateTimeOffset.Now,
-                0).Result;
+            var response = client.CreateScroll(RequestDateType.Importdatum, DateTimeOffset.Now.AddHours(-2), DateTimeOffset.Now.AddMinutes(-5));
 
-            response.Items.ForEach(i => Log.Information("Article:{id} - Headline:{headline}", i.Id, i.Inhalt.Headline));
-
-            count += response.Items.Count();
-
-            while(response.Next().Result)
+            while (response.Next().Result)
             {
                 response.Items.ForEach(i => Log.Information("Article:{id} - Headline:{headline}", i.Id, i.Inhalt.Headline));
 
                 Log.Debug("Waiting for next Batch");
                 count += response.Items.Count();
             }
-                
-            
+
+            Log.Information("Found {count} Articles", count);
 
             Console.Read();
             Console.WriteLine();
