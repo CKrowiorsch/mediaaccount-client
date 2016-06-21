@@ -1,4 +1,5 @@
-﻿using Krowiorsch.MediaAccount.Model;
+﻿using System.Linq;
+using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.Resources;
 using Machine.Specifications;
 
@@ -23,6 +24,24 @@ namespace Krowiorsch.MediaAccount
 
         It should_have_a_nextLink = () =>
             _result.NextPageLink.ShouldEqual("http://test.api.media-account2.de/api/v2/Articles?typ=Erscheinungsdatum&von=1466377200&bis=1466463600&page=2");
+
+        static ArticleListScroll _result;
+    }
+
+    [Subject("Deserialize")]
+    public class when_deserialze_a_sample_into_scroller : with_articleListDeserializer
+    {
+        Because of = () =>
+        {
+            _result = new ArticleListScroll(null);
+            _sut.DeserializeInto(ResourceProvider.ProvideJsonByName("SampleArticleResponse"), _result);
+        };
+            
+        It should_have_a_nextLink = () =>
+            _result.NextPageLink.ShouldEqual("http://test.api.media-account2.de/api/v2/Articles?typ=Erscheinungsdatum&von=1466377200&bis=1466463600&page=2");
+
+        It should_have_150_Articles = () =>
+            _result.Items.Count().ShouldEqual(150);
 
         static ArticleListScroll _result;
     }

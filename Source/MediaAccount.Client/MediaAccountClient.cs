@@ -35,13 +35,17 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-        public async Task<ArticleListResponse> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 1)
+
+
+        public async Task<ArticleListScroll> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 1)
         {
             var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).Create(dateType, start, end, page);
             var result = await _httpClient.SendAsync(request);
             result.EnsureSuccessStatusCode();
-            var json = await result.Content.ReadAsStringAsync();
-            return _deserializer.Deserialize(json);
+
+            var scroll = new ArticleListScroll(this);
+            _deserializer.DeserializeInto(await result.Content.ReadAsStringAsync(), scroll);
+            return scroll;
 
             // http://test.api.media-account2.de:80/api/v2/Articles?typ=Importdatum&von=1&bis=2
             // ImportDatum
@@ -57,6 +61,19 @@ namespace Krowiorsch.MediaAccount
             // page: number
 
             return null;
+        }
+
+        internal async Task<bool> MoveScroll(ArticleListScroll scroll)
+        {
+            if (string.IsNullOrEmpty(scroll.NextPageLink))
+                return false;
+
+            var request = new ArticleScrollBuilder(_httpClient.BaseAddress, _apiKey).Create(scroll);
+            var result = await _httpClient.SendAsync(request);
+            result.EnsureSuccessStatusCode();
+            var json = await result.Content.ReadAsStringAsync();
+
+            return _deserializer.DeserializeInto(json, scroll);
         }
 
         public async Task<Article[]> LastArticles()

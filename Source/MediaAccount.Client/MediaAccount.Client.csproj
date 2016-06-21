@@ -57,9 +57,10 @@
     <Compile Include="ArticleListDeserializer.cs" />
     <Compile Include="MediaAccountClient.cs" />
     <Compile Include="Model\Article.cs" />
-    <Compile Include="Model\ArticleListResponse.cs" />
+    <Compile Include="Model\ArticleListScroll.cs" />
     <Compile Include="Model\Auftrag.cs" />
     <Compile Include="Model\Inhalt.cs" />
+    <Compile Include="RequestBuilder\ArticleScrollBuilder.cs" />
     <Compile Include="RequestBuilder\BaseRequestBuilder.cs" />
     <Compile Include="RequestBuilder\RequestDateType.cs" />
     <Compile Include="Model\Publikation.cs" />
