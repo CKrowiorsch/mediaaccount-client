@@ -35,8 +35,6 @@
         public string UpdateDatum { get; set; }
         public string Digitalisierungsdatum { get; set; }
         
-        
-        
         public Inhalt Inhalt { get; set; }
         public Publikation Publikation { get; set; }
         

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Krowiorsch.MediaAccount.RequestBuilder;
 
 namespace Krowiorsch.MediaAccount
 {
@@ -7,14 +9,20 @@ namespace Krowiorsch.MediaAccount
 
         public static void Main()
         {
-            MediaAccountClient client = new IntializeClient().GetClient();
+            var client = new IntializeClient().GetClient();
 
-            Console.WriteLine("ArticleId");
-            var articleId = Console.ReadLine();
+            //Console.WriteLine("ArticleId");
+            //var articleId = Console.ReadLine();
 
-            var article = client.GetByIdAsync(long.Parse(articleId)).Result;
+            //var article = client.GetByIdAsync(long.Parse(articleId)).Result;
 
-            Console.WriteLine(article.Auftrag);
+            var articles = client.GetList(RequestDateType.Erscheinungsdatum,
+                DateTimeOffset.Now.Date.AddDays(-1),
+                DateTimeOffset.Now.Date,
+                1).Result;
+
+
+            Console.WriteLine(articles.Count());
 
             Console.Read();
             Console.WriteLine();

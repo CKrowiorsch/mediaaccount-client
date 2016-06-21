@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.Model;
+using Krowiorsch.MediaAccount.RequestBuilder;
 using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount
@@ -32,8 +33,18 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-        public async Task<Article[]> GetList()
+        public async Task<Article[]> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 1)
         {
+            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).Create(dateType, start, end, page);
+
+            var result = await _httpClient.SendAsync(request);
+
+            result.EnsureSuccessStatusCode();
+
+            var json = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Article[]>(json);
+
             // http://test.api.media-account2.de:80/api/v2/Articles?typ=Importdatum&von=1&bis=2
             // ImportDatum
             // Erscheinungsdatum
@@ -48,7 +59,11 @@ namespace Krowiorsch.MediaAccount
             // page: number
 
             return null;
+        }
 
+        public async Task<Article[]> LastArticles()
+        {
+            return null;
         }
 
         HttpRequestMessage Create(string endpoint)
