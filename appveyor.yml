@@ -5,3 +5,7 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}-rc1'
+configuration: Release
+platform: Any CPU
+build_script:
+- cmd: psake ci
