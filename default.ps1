@@ -21,6 +21,14 @@ task clean {
   [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
 }
 
+task deploy -depends rebuild {
+  push-location "$bindir/"
+  copy "$location/MediaAccount.Client.nuspec" $bindir
+  $version = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo("$bindir\MediaAccount.Client\MediaAccount.Client.dll").productVersion);
+  exec { ..\..\.NuGet\NuGet.exe pack "MediaAccount.Client.nuspec" /version "$version" }
+  pop-location
+}
+
 task nuget-restore {
   exec { .nuget\nuget.exe restore }
 }
