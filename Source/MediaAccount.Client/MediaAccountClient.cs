@@ -59,8 +59,6 @@ namespace Krowiorsch.MediaAccount
             // bis Datetime
 
             // page: number
-
-            return null;
         }
 
 
@@ -86,7 +84,7 @@ namespace Krowiorsch.MediaAccount
 
         public async Task<Article[]> LastArticles()
         {
-            return null;
+            return await Task.FromResult<Article[]>(null);
         }
 
         HttpRequestMessage Create(string endpoint)
