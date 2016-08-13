@@ -9,10 +9,8 @@ configuration: Release
 platform: Any CPU
 build_script:
 - cmd: psake ci
-artifacts:
-- path: Artifacts\**
-  name: Nuget
 deploy:
 - provider: NuGet
   api_key:
     secure: NNMetyZOFd94PObZltb2bG6VgWdh3g9tNJE80zwYfxP8L3Jq3v5zic9asFytPpgb
+  artifact: '*.nupkg'

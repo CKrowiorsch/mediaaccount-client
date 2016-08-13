@@ -9,7 +9,7 @@ properties {
 }
 
 task default -depends help
-task ci -depends rebuild
+task ci -depends rebuild,create-nuget
 
 
 task help {
@@ -21,7 +21,7 @@ task clean {
   [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
 }
 
-task deploy -depends rebuild {
+task create-nuget -depends rebuild {
   push-location "$bindir/"
   copy "$location/MediaAccount.Client.nuspec" $bindir
   $version = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo("$bindir\MediaAccount.Client\MediaAccount.Client.dll").productVersion);
