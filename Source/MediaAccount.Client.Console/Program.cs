@@ -7,7 +7,6 @@ namespace Krowiorsch.MediaAccount
 {
     public class Program
     {
-
         public static void Main()
         {
             Log.Logger = new LoggerConfiguration()
