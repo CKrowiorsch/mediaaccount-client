@@ -13,16 +13,14 @@ namespace Krowiorsch.MediaAccount
                 .WriteTo.LiterateConsole()
                 .CreateLogger();
 
-            var client = new IntializeClient().GetClient();
+            var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
+            var baseUri = new Uri("http://api.media-account2.de");
 
-            //Console.WriteLine("ArticleId");
-            //var articleId = Console.ReadLine();
-
-            //var article = client.GetByIdAsync(long.Parse(articleId)).Result;
+            var client = new IntializeClient().GetClient(keyProvider.Provide(), baseUri);
 
             int count = 0;
 
-            var response = client.CreateScroll(RequestDateType.Importdatum, DateTimeOffset.Now.AddHours(-2), DateTimeOffset.Now.AddMinutes(-5));
+            var response = client.CreateScroll(RequestDateType.Importdatum, DateTimeOffset.Now.Date.AddDays(-4), DateTimeOffset.Now.AddMinutes(-5));
 
             while (response.Next().Result)
             {
