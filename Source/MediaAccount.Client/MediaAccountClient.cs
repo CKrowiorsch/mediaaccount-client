@@ -35,8 +35,6 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-
-
         public async Task<ArticleListScroll> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 0)
         {
             var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).Create(dateType, start, end, page);
@@ -46,19 +44,6 @@ namespace Krowiorsch.MediaAccount
             var scroll = new ArticleListScroll(this);
             _deserializer.DeserializeInto(await result.Content.ReadAsStringAsync(), scroll);
             return scroll;
-
-            // http://test.api.media-account2.de:80/api/v2/Articles?typ=Importdatum&von=1&bis=2
-            // ImportDatum
-            // Erscheinungsdatum
-            // Selektionsdatum
-            // Lieferdatum
-            // Updatedatum
-            // Digitalisierungsdatum
-
-            // von Datetime
-            // bis Datetime
-
-            // page: number
         }
 
 

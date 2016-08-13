@@ -2,6 +2,7 @@
 {
     public class Redaktion
     {
+        /// <summary>Anrede der Redaktion</summary>
         public string Anrede { get; set; }
         public string Leiter { get; set; }
         public string Strasse { get; set; }

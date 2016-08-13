@@ -5,7 +5,7 @@
     /// </summary>
     public class Auftrag
     {
-        /// <summary>auftragsnummer für den der Artikel gefunden wurde.</summary>
+        /// <summary>Auftragsnummer für den der Artikel gefunden wurde.</summary>
         public int Auftragsnummer { get; set; }
         
         /// <summary> Auftragsbeschreibung für den Auftrag </summary>

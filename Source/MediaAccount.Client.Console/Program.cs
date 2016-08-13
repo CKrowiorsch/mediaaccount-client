@@ -20,7 +20,7 @@ namespace Krowiorsch.MediaAccount
 
             int count = 0;
 
-            var response = client.CreateScroll(RequestDateType.Importdatum, DateTimeOffset.Now.Date.AddDays(-4), DateTimeOffset.Now.AddMinutes(-5));
+            var response = client.CreateScroll(RequestDateType.Importdatum, DateTimeOffset.Now.Date.AddDays(-14), DateTimeOffset.Now.AddMinutes(-5));
 
             while (response.Next().Result)
             {

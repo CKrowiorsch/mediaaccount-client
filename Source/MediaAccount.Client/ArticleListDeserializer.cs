@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Krowiorsch.MediaAccount.Model;
+﻿using Krowiorsch.MediaAccount.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

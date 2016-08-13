@@ -2,6 +2,7 @@
 {
     public class Inhalt
     {
+        /// <summary>Headline des Artikels </summary>
         public string Headline { get; set; }
         public string Subheadline { get; set; }
         public object Abstract { get; set; }
