@@ -2,15 +2,21 @@
 {
     public class Article
     {
-        /// <summary> </summary>
+        /// <summary> Eindeutiger Identifier des Artikel</summary>
         public string Id { get; set; }
 
-        /// <summary>  </summary>
+        /// <summary> gibt den Auftrag+Suchbegriff an, für den der Artikel gefunden wurde. </summary>
         public Auftrag Auftrag { get; set; }
 
+        /// <summary> wenn es für den Artikel ein Medienblatt gibt, gibt dieser Wert den Anzahl der Seiten an </summary>
         public int? AnzahlSeiten { get; set; }
+
+        /// <summary> eindeutige Id des Medienblatts</summary>
         public string MedienblattId { get; set; }
+
+        /// <summary> Link zu dem Medienblatt - es wird ein Pdf geliefert</summary>
         public string MedienblattLink { get; set; }
+        
         
         public object SendungsBeginn { get; set; }
         public object Beitragsstart { get; set; }
@@ -42,6 +48,7 @@
         public Inhalt Inhalt { get; set; }
         public Publikation Publikation { get; set; }
         
+        /// <summary>gibt die an dem Artikeldefinierten Tags an.</summary>
         public string[] Tags { get; set; }
     }
 }
