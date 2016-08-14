@@ -67,11 +67,6 @@ namespace Krowiorsch.MediaAccount
             return _deserializer.DeserializeInto(json, scroll);
         }
 
-        public async Task<Article[]> LastArticles()
-        {
-            return await Task.FromResult<Article[]>(null);
-        }
-
         HttpRequestMessage Create(string endpoint)
         {
             var message = new HttpRequestMessage(HttpMethod.Get, endpoint);
