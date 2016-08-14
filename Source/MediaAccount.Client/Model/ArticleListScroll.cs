@@ -31,8 +31,13 @@ namespace Krowiorsch.MediaAccount.Model
 
         public void Dispose()
         {
-            if (_client != null)
-                _client.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _client.Dispose();
         }
     }
 }

@@ -70,6 +70,12 @@ namespace Krowiorsch.MediaAccount
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposable)
+        {
             _httpClient.Dispose();
         }
     }
