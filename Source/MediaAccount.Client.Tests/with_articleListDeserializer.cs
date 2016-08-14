@@ -8,7 +8,7 @@ using Machine.Specifications;
 
 namespace Krowiorsch.MediaAccount
 {
-    public class with_articleListDeserializer
+    class with_articleListDeserializer
     {
         Establish context = () =>
             _sut = new ArticleListDeserializer();
@@ -17,7 +17,7 @@ namespace Krowiorsch.MediaAccount
     }
 
     [Subject("Deserialize")]
-    public class when_deserialze_a_sample_into_scroller : with_articleListDeserializer
+    class when_deserialze_a_sample_into_scroller : with_articleListDeserializer
     {
         Because of = () =>
         {

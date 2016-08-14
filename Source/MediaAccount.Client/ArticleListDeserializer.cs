@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Krowiorsch.MediaAccount
 {
-    public class ArticleListDeserializer
+    internal class ArticleListDeserializer
     {
         public bool DeserializeInto(string json, ArticleListScroll scroll)
         {
