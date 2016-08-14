@@ -96,6 +96,6 @@
       "Tags": null
     }
   ],
-	"NextPageLink": "http://test.api.media-account2.de/api/v2/Articles?typ=Erscheinungsdatum&von=1466377200&bis=1466463600&page=2",
-	"Count": 1
+  "NextPageLink": "http://test.api.media-account2.de/api/v2/Articles?typ=Erscheinungsdatum&von=1466377200&bis=1466463600&page=2",
+  "Count": 1
 }
