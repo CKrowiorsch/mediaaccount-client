@@ -12,10 +12,3 @@ build_script:
 artifacts:
   path: 'build\**\MediaAccount.Client*.nupkg'
   name: Nuget
-deploy:
-- provider: NuGet
-  api_key:
-    secure: NNMetyZOFd94PObZltb2bG6VgWdh3g9tNJE80zwYfxP8L3Jq3v5zic9asFytPpgb
-  artifact: 'Nuget'
-  on:
-    branch: stable
