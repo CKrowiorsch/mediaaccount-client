@@ -9,7 +9,7 @@ properties {
 }
 
 task default -depends help
-task ci -depends rebuild,create-nuget
+task ci -depends rebuild,build-tests,create-nuget
 
 
 task help {
@@ -36,4 +36,9 @@ task nuget-restore {
 task rebuild -depends clean,nuget-restore {
   $solution = get-location;
   exec { msbuild /nologo /v:minimal /t:rebuild /p:"Configuration=Release;OutputPath=$bindir/MediaAccount.Client/;SolutionDir=$solution/" "Source/MediaAccount.Client/MediaAccount.Client.csproj" }
+}
+
+task build-tests -depends clean,nuget-restore {
+  $solution = get-location;
+  exec { msbuild /nologo /v:minimal /t:rebuild /p:"Configuration=Release;OutputPath=$bindir/MediaAccount.Client.Tests/;SolutionDir=$solution/" "Source/MediaAccount.Client.Tests/MediaAccount.Client.Tests.csproj" }
 }
