@@ -17,18 +17,6 @@ namespace Krowiorsch.MediaAccount
     }
 
     [Subject("Deserialize")]
-    public class when_deserialze_a_sample : with_articleListDeserializer
-    {
-        Because of = () =>
-            _result = _sut.Deserialize(ResourceProvider.ProvideJsonByName("SampleArticleResponse"));
-
-        It should_have_a_nextLink = () =>
-            _result.NextPageLink.ShouldEqual("http://test.api.media-account2.de/api/v2/Articles?typ=Erscheinungsdatum&von=1466377200&bis=1466463600&page=2");
-
-        static ArticleListScroll _result;
-    }
-
-    [Subject("Deserialize")]
     public class when_deserialze_a_sample_into_scroller : with_articleListDeserializer
     {
         Because of = () =>
