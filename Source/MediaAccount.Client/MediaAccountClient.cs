@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount
 {
-    public class MediaAccountClient : IDisposable
+    public class MediaAccountClient : IDisposable, IMediaAccountClient
     {
         readonly string _userAgent;
         readonly string _apiKey;
@@ -15,23 +15,28 @@ namespace Krowiorsch.MediaAccount
 
         readonly ArticleListDeserializer _deserializer = new ArticleListDeserializer();
 
-        public MediaAccountClient(string apiKey, Uri baseEndpoint)
+        /// <summary>
+        /// Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.
+        /// </summary>
+        /// <param name="apiKey"></param>
+        /// <param name="baseEndpoint"></param>
+        public MediaAccountClient(string apiKey, Uri baseEndpoint = null)
         {
+            baseEndpoint = baseEndpoint ?? Constants.EndpointProduction;
+
             _apiKey = apiKey;
             _httpClient = new HttpClient { BaseAddress = baseEndpoint };
             _userAgent = string.Format("MediaAccountClient ({0})", GetType().Assembly.GetName().Version);
         }
 
-        public async Task<Article> GetByIdAsync(long id)
+        public async Task<Article> GetByIdAsync(string id)
         {
             var message = Create(string.Format("api/v2/Articles/{0}", id));
-
             var result = await _httpClient.SendAsync(message);
 
             result.EnsureSuccessStatusCode();
 
             var json = await result.Content.ReadAsStringAsync();
-
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
