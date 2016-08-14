@@ -43,8 +43,8 @@ namespace Krowiorsch.MediaAccount
             _sut.DeserializeInto(ResourceProvider.ProvideJsonByName("SingleArticleResponse"), _result);
         };
 
-        It should_have_importdatum_with_null = () =>
-            _result.Items[0].Importdatum.ShouldBeNull();
+        It should_have_lieferdatum_with_null = () =>
+            _result.Items[0].Lieferdatum.ShouldBeNull();
 
         It should_have_1_Article = () =>
             _result.Items.Count().ShouldEqual(1);
