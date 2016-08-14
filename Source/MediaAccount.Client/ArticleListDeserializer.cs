@@ -1,5 +1,6 @@
 ﻿using Krowiorsch.MediaAccount.Model;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace Krowiorsch.MediaAccount
 {
@@ -13,7 +14,28 @@ namespace Krowiorsch.MediaAccount
             scroll.Count = token["Count"].Value<int>();
             scroll.Items = token["Items"].ToObject<Article[]>();
 
+            foreach(var item in scroll.Items)
+            {
+                Repair(item);
+            }
+
             return true;
+        }
+
+        /// <summary>dient dazu, fehlerhaft Jsonwerte vom Server zu korrigieren</summary>
+        void Repair(Article article)
+        {
+            article.Lieferdatum = RepairDate(article.Lieferdatum);
+            article.UpdateDatum = RepairDate(article.UpdateDatum);
+            article.Digitalisierungsdatum = RepairDate(article.Digitalisierungsdatum);
+        }
+
+        DateTime? RepairDate(DateTime? datetime)
+        {
+            if (datetime.HasValue && datetime.Equals(DateTime.MinValue))
+                return null;
+
+            return datetime;
         }
     }
 }

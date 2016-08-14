@@ -40,12 +40,12 @@ namespace Krowiorsch.MediaAccount.Model
         // TODO: why nullable
         public bool? IsDigitized { get; set; }
 
-        public string Lieferdatum { get; set; }
-        public DateTimeOffset Importdatum { get; set; }
-        public DateTimeOffset Selektionsdatum { get; set; }
-        public DateTimeOffset Erscheinungsdatum { get; set; }
-        public string UpdateDatum { get; set; }
-        public string Digitalisierungsdatum { get; set; }
+        public DateTime? Lieferdatum { get; set; }
+        public DateTime Importdatum { get; set; }
+        public DateTime Selektionsdatum { get; set; }
+        public DateTime Erscheinungsdatum { get; set; }
+        public DateTime? UpdateDatum { get; set; }
+        public DateTime? Digitalisierungsdatum { get; set; }
         
         public Inhalt Inhalt { get; set; }
         public Publikation Publikation { get; set; }
