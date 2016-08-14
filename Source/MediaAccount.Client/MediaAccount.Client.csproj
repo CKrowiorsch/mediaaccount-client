@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleListDeserializer.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="IMediaAccountClient.cs" />
     <Compile Include="MediaAccountClient.cs" />
     <Compile Include="Model\Article.cs" />

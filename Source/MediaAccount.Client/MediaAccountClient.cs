@@ -15,11 +15,9 @@ namespace Krowiorsch.MediaAccount
 
         readonly ArticleListDeserializer _deserializer = new ArticleListDeserializer();
 
-        /// <summary>
-        /// Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.
-        /// </summary>
-        /// <param name="apiKey"></param>
-        /// <param name="baseEndpoint"></param>
+        /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
+        /// <param name="apiKey">Api key</param>
+        /// <param name="baseEndpoint">alternativer Endpoint</param>
         public MediaAccountClient(string apiKey, Uri baseEndpoint = null)
         {
             baseEndpoint = baseEndpoint ?? Constants.EndpointProduction;
