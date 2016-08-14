@@ -11,7 +11,7 @@
     <tags>MediaAccount</tags>
     <dependencies>
       <dependency id="Microsoft.Net.Http" version="[2.2.29,3.0.0)" />
-      <dependency id="Json.Net" version="[9.0.1,10.0.0)" />
+      <dependency id="Newtonsoft.Json" version="[9.0.1,10.0.0)" />
     </dependencies>
   </metadata>
 
