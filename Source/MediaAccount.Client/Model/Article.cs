@@ -1,4 +1,6 @@
-﻿namespace Krowiorsch.MediaAccount.Model
+﻿using System;
+
+namespace Krowiorsch.MediaAccount.Model
 {
     public class Article
     {
@@ -39,9 +41,9 @@
         public bool? IsDigitized { get; set; }
 
         public string Lieferdatum { get; set; }
-        public string Importdatum { get; set; }
-        public string Selektionsdatum { get; set; }
-        public string Erscheinungsdatum { get; set; }
+        public DateTimeOffset Importdatum { get; set; }
+        public DateTimeOffset Selektionsdatum { get; set; }
+        public DateTimeOffset Erscheinungsdatum { get; set; }
         public string UpdateDatum { get; set; }
         public string Digitalisierungsdatum { get; set; }
         
