@@ -35,18 +35,6 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-        public async Task<ArticleListScroll> GetList(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int page = 0)
-        {
-            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).Create(dateType, start, end, page);
-            var result = await _httpClient.SendAsync(request);
-            result.EnsureSuccessStatusCode();
-
-            var scroll = new ArticleListScroll(this);
-            _deserializer.DeserializeInto(await result.Content.ReadAsStringAsync(), scroll);
-            return scroll;
-        }
-
-
         public ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end)
         {
             var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end);
