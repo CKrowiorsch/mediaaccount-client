@@ -33,4 +33,22 @@ namespace Krowiorsch.MediaAccount
 
         static ArticleListScroll _result;
     }
+
+    [Subject("Deserialize")]
+    class when_deserialze_a_singlesample_into_scroller : with_articleListDeserializer
+    {
+        Because of = () =>
+        {
+            _result = new ArticleListScroll(null);
+            _sut.DeserializeInto(ResourceProvider.ProvideJsonByName("SingleArticleResponse"), _result);
+        };
+
+        It should_have_importdatum_with_null = () =>
+            _result.Items[0].Importdatum.ShouldBeNull();
+
+        It should_have_1_Article = () =>
+            _result.Items.Count().ShouldEqual(1);
+
+        static ArticleListScroll _result;
+    }
 }
