@@ -51,7 +51,7 @@ namespace Krowiorsch.MediaAccount
                 return false;
 
             var request = new ArticleScrollBuilder(_httpClient.BaseAddress, _apiKey).Create(scroll);
-            var result = await _httpClient.SendAsync(request);
+            var result = await _httpClient.SendAsync(request).ConfigureAwait(false);
             result.EnsureSuccessStatusCode();
             var json = await result.Content.ReadAsStringAsync();
 
