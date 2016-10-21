@@ -40,7 +40,7 @@ namespace Krowiorsch.MediaAccount
 
         public ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end)
         {
-            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end);
+            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, 5);
             return new ArticleListScroll(this) { NextPageLink = request };
         }
 

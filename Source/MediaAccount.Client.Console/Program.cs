@@ -13,8 +13,8 @@ namespace Krowiorsch.MediaAccount
                 .WriteTo.LiterateConsole()
                 .CreateLogger();
 
-            var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
-            var baseUri = new Uri("http://api.media-account2.de");
+            var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccountTest.txt"));
+            var baseUri = new Uri("http://test.api.media-account2.de");
 
             var client = new IntializeClient().GetClient(keyProvider.Provide(), baseUri);
 
@@ -24,7 +24,8 @@ namespace Krowiorsch.MediaAccount
 
             while (response.Next().Result)
             {
-                response.Items.ForEach(i => Log.Information("Article:{id} - Headline:{headline}", i.Id, i.Inhalt.Headline));
+                Log.Information("New Batch >");
+                response.Items.ForEach(i => Log.Information("\tArticle:{id} - Date:{date}  - Headline:{headline}", i.Id, i.Importdatum, i.Inhalt.Headline));
 
                 Log.Debug("Waiting for next Batch");
                 count += response.Items.Count();
