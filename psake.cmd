@@ -18,6 +18,6 @@ rem ensure psake is installed
 REM Find psake with version
 for /f "tokens=*" %%F in ('dir /b /a:d "%BASEPATH%Packages\PSake*"') do call set PSAKEPATH=%BASEPATH%Packages\%%F\
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command "& '%PSAKEPATH%\tools\psake.ps1' %*; if ($psake.build_success -eq $false) { exit 1 } else { exit 0 }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "& '%PSAKEPATH%tools\psake\psake.ps1' %*; if ($psake.build_success -eq $false) { exit 1 } else { exit 0 }"
 
 :END
