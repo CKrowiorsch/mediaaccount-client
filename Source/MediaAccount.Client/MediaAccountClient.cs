@@ -24,12 +24,12 @@ namespace Krowiorsch.MediaAccount
 
             _apiKey = apiKey;
             _httpClient = new HttpClient { BaseAddress = baseEndpoint };
-            _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
+            _userAgent = string.Format("MediaAccountClient ({0})", GetType().Assembly.GetName().Version);
         }
 
         public async Task<Article> GetByIdAsync(string id)
         {
-            var message = Create($"api/v2/Articles/{id}");
+            var message = Create(string.Format("api/v2/Articles/{0}", id));
             var result = await _httpClient.SendAsync(message);
 
             result.EnsureSuccessStatusCode();
