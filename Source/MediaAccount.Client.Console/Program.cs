@@ -2,6 +2,7 @@
 using System.Linq;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Krowiorsch.MediaAccount
 {
@@ -10,11 +11,11 @@ namespace Krowiorsch.MediaAccount
         public static void Main()
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.LiterateConsole()
+                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss} [{Level:u3}]  {Message} {NewLine}{Exception}", theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
 
-            var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccountTest.txt"));
-            var baseUri = new Uri("http://test.api.media-account2.de");
+            var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
+            var baseUri = new Uri("http://api.media-account2.de");
 
             var client = new IntializeClient().GetClient(keyProvider.Provide(), baseUri);
 
