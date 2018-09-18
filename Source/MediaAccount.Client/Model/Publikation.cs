@@ -14,10 +14,10 @@
         public decimal? GedruckteAuflage { get; set; }
         public string Bundesland { get; set; }
         public string Nielsengebiet { get; set; }
-        public object WerbepreisProSekunde { get; set; }
-        public object IvwNummer { get; set; }
-        public object IvwNameOnline { get; set; }
-        public object ZimpelNr { get; set; }
+        public decimal? WerbepreisProSekunde { get; set; }
+        public string IvwNummer { get; set; }
+        public string IvwNameOnline { get; set; }
+        public string ZimpelNr { get; set; }
         public decimal? WerbepreisC1 { get; set; }
         public decimal? WerbepreisC2 { get; set; }
         public decimal? WerbepreisC3 { get; set; }
