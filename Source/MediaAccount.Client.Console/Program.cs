@@ -26,7 +26,10 @@ namespace Krowiorsch.MediaAccount
             while (response.Next().Result)
             {
                 Log.Information("New Batch >");
-                response.Items.ForEach(i => Log.Information("\tArticle:{id} - Date:{date}  - Headline:{headline}", i.Id, i.Importdatum, i.Inhalt.Headline));
+                foreach (var item in response.Items)
+                {
+                    Log.Information("Article:{id} - Date:{date}  - Headline:{headline}", item.Id, item.Importdatum, item.Inhalt.Headline);
+                }
 
                 Log.Debug("Waiting for next Batch");
                 count += response.Items.Count();
