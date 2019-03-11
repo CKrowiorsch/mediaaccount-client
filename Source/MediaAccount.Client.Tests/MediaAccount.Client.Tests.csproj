@@ -21,4 +21,13 @@
   <ItemGroup>
     <ProjectReference Include="..\MediaAccount.Client\MediaAccount.Client.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Resources\SampleArticleResponse.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\SingleArticleResponse.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   </Project> 
