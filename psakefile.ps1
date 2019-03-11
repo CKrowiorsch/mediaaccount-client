@@ -1,4 +1,3 @@
-Framework('4.7.1')
 $erroractionpreference = "Stop"
 
 properties {
@@ -9,8 +8,7 @@ properties {
 }
 
 task default -depends help
-task ci -depends rebuild,build-tests,create-nuget
-
+task ci -depends rebuild,build-tests
 
 task help {
 	write-host "Buildscript for MediaAccount client"
@@ -21,26 +19,10 @@ task clean {
   [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
 }
 
-task create-nuget -depends rebuild {
-  push-location "$bindir/"
-  copy "$location/MediaAccount.Client.nuspec" $bindir
-  $version = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo("$bindir\MediaAccount.Client\MediaAccount.Client.dll").productVersion);
-
-  # create standardpackage
-  exec { ..\..\.NuGet\NuGet.exe pack "MediaAccount.Client.nuspec" /version "$version" }
-  pop-location
+task rebuild -depends clean {
+  dotnet build -c Release -o "$bindir/MediaAccount.Client" "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
 }
 
-task nuget-restore {
-  exec { .nuget\nuget.exe restore }
-}
-
-task rebuild -depends clean,nuget-restore {
-  $solution = get-location;
-  exec { msbuild /nologo /v:minimal /t:rebuild /p:"Configuration=Release;OutputPath=$bindir/MediaAccount.Client/;SolutionDir=$solution/" "Source/MediaAccount.Client/MediaAccount.Client.csproj" }
-}
-
-task build-tests -depends clean,nuget-restore {
-  $solution = get-location;
-  exec { msbuild /nologo /v:minimal /t:rebuild /p:"Configuration=Release;OutputPath=$bindir/MediaAccount.Client.Tests/;SolutionDir=$solution/" "Source/MediaAccount.Client.Tests/MediaAccount.Client.Tests.csproj" }
+task build-tests -depends clean {
+  dotnet build -c Release -o "$bindir/MediaAccount.Client.Tests" "Source/MediaAccount.Client.Tests/MediaAccount.Client.Tests.csproj" -nologo
 }
