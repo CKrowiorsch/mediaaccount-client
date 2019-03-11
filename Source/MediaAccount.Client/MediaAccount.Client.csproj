@@ -3,14 +3,16 @@
   <PropertyGroup>
     <TargetFrameworks>net452;net472</TargetFrameworks>
     <Version>0.2.4</Version>
-    <Company>Landau Media GmbH &amp; CoKG</Company>
-    <PackageTags>Clipmaker Auftrag</PackageTags>
+    <Company></Company>
+    <PackageTags>MediaAccount</PackageTags>
     <PackageProjectUrl>https://github.com/CKrowiorsch/mediaaccount-client</PackageProjectUrl>
     <RepositoryUrl>git@github.com:CKrowiorsch/mediaaccount-client.git</RepositoryUrl>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>Krowiorsch.MediaAccount</RootNamespace>
+    <Description>API to access the MediaAccount Service</Description>
+    <Authors>Christian Krowiorsch</Authors>
   </PropertyGroup>
   
   <ItemGroup>
