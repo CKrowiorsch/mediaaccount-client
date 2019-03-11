@@ -26,9 +26,6 @@ task create-nuget -depends rebuild {
   copy "$location/MediaAccount.Client.nuspec" $bindir
   $version = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo("$bindir\MediaAccount.Client\MediaAccount.Client.dll").productVersion);
 
-  # create beta package
-  exec { ..\..\.NuGet\NuGet.exe pack "MediaAccount.Client.nuspec" /version "$version-beta" }
-
   # create standardpackage
   exec { ..\..\.NuGet\NuGet.exe pack "MediaAccount.Client.nuspec" /version "$version" }
   pop-location
