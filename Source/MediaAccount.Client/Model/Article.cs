@@ -58,5 +58,11 @@ namespace Krowiorsch.MediaAccount.Model
         
         /// <summary>gibt die an dem Artikeldefinierten Tags an.</summary>
         public string[] Tags { get; set; }
+
+        /// <summary> Herkunftsland des Artikels </summary>
+        public string Herkunftsland { get; set; }
+
+        /// <summary> Sprache des Artikels </summary>
+        public string Sprache { get; set; }
     }
 }
