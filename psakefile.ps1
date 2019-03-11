@@ -11,7 +11,6 @@ properties {
 task default -depends help
 task ci -depends rebuild,build-tests
 
-
 task help {
 	write-host "Buildscript for MediaAccount client"
 	write-host "Tasks: rebuild"
@@ -21,14 +20,10 @@ task clean {
   [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
 }
 
-task nuget-restore {
-  exec { .nuget\nuget.exe restore }
-}
-
-task rebuild -depends clean,nuget-restore {
+task rebuild -depends clean {
   dotnet build -c Release -o "$bindir/MediaAccount.Client" "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
 }
 
-task build-tests -depends clean,nuget-restore {
+task build-tests -depends clean {
   dotnet build -c Release -o "$bindir/MediaAccount.Client.Tests" "Source/MediaAccount.Client.Tests/MediaAccount.Client.Tests.csproj" -nologo
 }
