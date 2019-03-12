@@ -2,6 +2,7 @@
 using System.Linq;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
+using Serilog.Core;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Krowiorsch.MediaAccount
@@ -15,9 +16,8 @@ namespace Krowiorsch.MediaAccount
                 .CreateLogger();
 
             var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
-            var baseUri = new Uri("http://api.media-account2.de");
 
-            var client = new IntializeClient().GetClient(keyProvider.Provide(), baseUri);
+            var client = new IntializeClient().GetClient(keyProvider.Provide(), null);
 
             int count = 0;
 

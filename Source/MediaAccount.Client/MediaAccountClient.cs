@@ -20,7 +20,7 @@ namespace Krowiorsch.MediaAccount
         /// <param name="baseEndpoint">alternativer Endpoint</param>
         public MediaAccountClient(string apiKey, Uri baseEndpoint = null)
         {
-            baseEndpoint = baseEndpoint ?? Constants.EndpointProduction;
+            baseEndpoint = baseEndpoint ?? Globals.EndpointProduction;
 
             _apiKey = apiKey;
             _httpClient = new HttpClient { BaseAddress = baseEndpoint };
