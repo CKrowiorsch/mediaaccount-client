@@ -22,5 +22,8 @@
 
         /// <summary>Autor des Artikels</summary>
         public string Autor { get; set; }
+
+        /// <summary> das interne Artikeldokument (Darstellung der internen Informationen)</summary>
+        public string Artikeldokument { get; set; }
     }
 }
