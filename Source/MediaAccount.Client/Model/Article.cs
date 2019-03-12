@@ -18,18 +18,18 @@ namespace Krowiorsch.MediaAccount.Model
 
         /// <summary> Link zu dem Medienblatt - es wird ein Pdf geliefert</summary>
         public string MedienblattLink { get; set; }
-        
+
         /// <summary> Uhrzeit wann die Sendung beginnt </summary>
         public string SendungsBeginn { get; set; }
         public string Beitragsstart { get; set; }
         public int? Beitragslaenge { get; set; }
-        
+
         /// <summary> Mediengattung (PRINT, TV usw.) </summary>
         public string Mediengattung { get; set; }
-        
+
         /// <summary> Mediengattung (Internet-Publikation, Anzeigenblatt usw) </summary>
         public string Medienart { get; set; }
-        
+
         /// <summary> Link auf ein Preview (Radio-Preview, TV-Preview usw) </summary>
         public string PreviewLink { get; set; }
         public string Deeplink { get; set; }
@@ -41,7 +41,7 @@ namespace Krowiorsch.MediaAccount.Model
         public double? Artikelgroesse { get; set; }
         public bool IsHaupttreffer { get; set; }
         public int? HaupttrefferId { get; set; }
-        
+
         /// <summary> return, if the article is digital available </summary>
         // TODO: why nullable
         public bool? IsDigitized { get; set; }
@@ -52,10 +52,10 @@ namespace Krowiorsch.MediaAccount.Model
         public DateTime Erscheinungsdatum { get; set; }
         public DateTime? UpdateDatum { get; set; }
         public DateTime? Digitalisierungsdatum { get; set; }
-        
+
         public Inhalt Inhalt { get; set; }
         public Publikation Publikation { get; set; }
-        
+
         /// <summary>gibt die an dem Artikeldefinierten Tags an.</summary>
         public string[] Tags { get; set; }
 
@@ -64,5 +64,11 @@ namespace Krowiorsch.MediaAccount.Model
 
         /// <summary> Sprache des Artikels </summary>
         public string Sprache { get; set; }
+
+        /// <summary> Tonalitaet des Artikels </summary>
+        public string Tonalitaet { get; set; }
+
+        /// <summary> Statistische Daten </summary>
+        public Engagement Engagement { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Krowiorsch.MediaAccount
                 }
 
                 Log.Debug("Waiting for next Batch");
-                count += response.Items.Count();
+                count += response.Items.Length;
             }
 
             Log.Information("Found {count} Articles", count);
