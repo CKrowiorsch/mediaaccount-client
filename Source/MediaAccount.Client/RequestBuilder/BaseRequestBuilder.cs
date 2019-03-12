@@ -6,16 +6,15 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
     public class BaseRequestBuilder
     {
         protected Uri _endpoint;
-        string _apiKey;
-        string _userAgent;
+        readonly string _apiKey;
+        readonly string _userAgent;
 
         protected BaseRequestBuilder(Uri endpoint, string apiKey)
         {
             _endpoint = endpoint;
             _apiKey = apiKey;
-            _userAgent = string.Format("MediaAccountClient ({0})", GetType().Assembly.GetName().Version);
+            _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
         }
-
 
         protected HttpRequestMessage CreateGet()
         {
