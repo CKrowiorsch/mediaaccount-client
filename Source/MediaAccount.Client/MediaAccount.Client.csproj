@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net472</TargetFrameworks>
+    <TargetFrameworks>net452;net472;netcoreapp2.2</TargetFrameworks>
     <Version>0.2.6</Version>
     <Company></Company>
     <PackageTags>MediaAccount</PackageTags>

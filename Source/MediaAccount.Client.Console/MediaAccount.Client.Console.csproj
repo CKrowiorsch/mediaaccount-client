@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;netcoreapp2.2</TargetFrameworks>
     <Version>1.0.0</Version>
     <Company>Landau Media GmbH &amp; CoKG</Company>
     <OutputType>Exe</OutputType>
