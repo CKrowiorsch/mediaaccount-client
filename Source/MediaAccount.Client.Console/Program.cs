@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
@@ -17,7 +17,7 @@ namespace Krowiorsch.MediaAccount
 
             var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
 
-            var client = new IntializeClient().GetClient(keyProvider.Provide(), null);
+            var client = new IntializeClient().GetClient(keyProvider.Provide(), new Uri("http://api-test.maazure.dev.local"));
 
             int count = 0;
 
