@@ -15,7 +15,7 @@
   
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" version="10.0.2" allowedVersions="(10.0.2," />
-    <PackageReference Include="Machine.Specifications.Should" version="0.11.0" />
+    <PackageReference Include="Machine.Specifications.Should" version="1.0.0" />
   </ItemGroup>
   
   <ItemGroup>
