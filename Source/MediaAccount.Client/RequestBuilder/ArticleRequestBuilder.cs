@@ -10,14 +10,14 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
         {
         }
 
-        public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150)
+        public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string additionalParameters = null)
         {
-            return string.Format("{0}api/v2/Articles?typ={1}&von={2}&bis={3}&maxItems={4}",
-                _endpoint,
-                dateType,
-                ToUnixTimeStamp(start),
-                ToUnixTimeStamp(end),
-                maxItems);
+            var url = $"{_endpoint}api/v2/Articles?typ={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&maxItems={maxItems}";
+
+            if(additionalParameters != null)
+                url += additionalParameters;
+
+            return url;
         }
 
 

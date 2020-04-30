@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Krowiorsch.MediaAccount
 {
@@ -38,9 +39,9 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-        public ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize = 50)
+        public ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize = 50, string additionalParameters = null)
         {
-            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize);
+            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
             return new ArticleListScroll(this) { NextPageLink = request };
         }
 
