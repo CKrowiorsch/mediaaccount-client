@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net452;net472;netcoreapp2.2</TargetFrameworks>
-    <Version>0.2.7</Version>
+    <Version>0.2.8</Version>
     <Company></Company>
     <PackageTags>MediaAccount</PackageTags>
     <PackageProjectUrl>https://github.com/CKrowiorsch/mediaaccount-client</PackageProjectUrl>
