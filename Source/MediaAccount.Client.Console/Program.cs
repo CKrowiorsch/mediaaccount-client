@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
-using Serilog.Core;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Krowiorsch.MediaAccount
@@ -28,14 +26,14 @@ namespace Krowiorsch.MediaAccount
                 Log.Information("New Batch >");
                 foreach (var item in response.Items)
                 {
-                    Log.Information("Article:{id} - Date:{date}  - Headline:{headline}", item.Id, item.Importdatum, item.Inhalt.Headline);
+                    Log.Information("Article:{Id} - Date:{Date}  - Headline:{Headline}", item.Id, item.Importdatum, item.Inhalt.Headline);
                 }
 
                 Log.Debug("Waiting for next Batch");
                 count += response.Items.Length;
             }
 
-            Log.Information("Found {count} Articles", count);
+            Log.Information("Found {Count} Articles", count);
 
             Console.Read();
             Console.WriteLine();
