@@ -14,8 +14,9 @@ namespace Krowiorsch.MediaAccount
         /// <param name="start">gibt das Startdatum an.</param>
         /// <param name="end">gibt das enddatum ein</param>
         /// <param name="batchSize">gibt an, in welcher Batchgrösse die Daten abgerufen werden sollen</param>
+        /// <param name="additionalParameters">ermöglicht die übergabe von benutzerdefinierten Queryparametern</param>
         /// <returns>Gibt ein Cursorobjekt an, in dem man schrittweise duch das result durchlaufen kann.</returns>
-        ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize);
+        ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize, string additionalParameters);
 
         /// <summary>ruft einen einzelnen Artikel ab</summary>
         /// <param name="id">gibt die Id des Artikels an.</param>
