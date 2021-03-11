@@ -30,7 +30,7 @@ namespace Krowiorsch.MediaAccount
             article.Digitalisierungsdatum = RepairDate(article.Digitalisierungsdatum);
         }
 
-        DateTime? RepairDate(DateTime? datetime)
+        static DateTime? RepairDate(DateTime? datetime)
         {
             if (datetime.HasValue && datetime.Equals(DateTime.MinValue))
                 return null;

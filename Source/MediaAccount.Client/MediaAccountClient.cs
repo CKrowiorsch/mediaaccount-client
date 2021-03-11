@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.Model;
@@ -22,7 +21,7 @@ namespace Krowiorsch.MediaAccount
         /// <param name="baseEndpoint">alternativer Endpoint</param>
         public MediaAccountClient(string apiKey, Uri baseEndpoint = null, ApiVersions apiVersion = ApiVersions.Version2)
         {
-            baseEndpoint = baseEndpoint ?? Globals.EndpointProduction;
+            baseEndpoint ??= Globals.EndpointProduction;
 
             _apiKey = apiKey;
             _apiVersion = apiVersion;
