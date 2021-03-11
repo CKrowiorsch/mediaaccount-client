@@ -1,4 +1,4 @@
-﻿namespace Krowiorsch.MediaAccount.Model
+﻿namespace Krowiorsch.MediaAccount.Model.V2
 {
     public class Verlag
     {

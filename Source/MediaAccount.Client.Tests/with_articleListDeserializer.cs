@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Krowiorsch.MediaAccount.Model;
+using Krowiorsch.MediaAccount.Model.V2;
 using Krowiorsch.MediaAccount.Resources;
 using Machine.Specifications;
 

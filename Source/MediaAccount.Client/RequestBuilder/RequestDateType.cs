@@ -9,7 +9,6 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
         Selektionsdatum,
         Lieferdatum,
 
-        [Obsolete("Updatedatum wird ab v3 nicht mehr benutzt - bitte AktualisierungsDatum nutzen")]
         Updatedatum,
         DigitalisierungsDatum,
         Aktualisierungsdatum

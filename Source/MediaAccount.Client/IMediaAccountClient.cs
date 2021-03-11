@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.Model;
+using Krowiorsch.MediaAccount.Model.V2;
 using Krowiorsch.MediaAccount.RequestBuilder;
 
 namespace Krowiorsch.MediaAccount
 {
-    public interface IMediaAccountClient
+    public interface IMediaAccountClient<T>
+        where T : class
     {
         /// <summary>
         /// Erzeugt einen Cursor zum durchlaufen der Artikel. Mit Next() wird der nächste Batch abgerufen.
@@ -16,11 +18,11 @@ namespace Krowiorsch.MediaAccount
         /// <param name="batchSize">gibt an, in welcher Batchgrösse die Daten abgerufen werden sollen</param>
         /// <param name="additionalParameters">ermöglicht die übergabe von benutzerdefinierten Queryparametern</param>
         /// <returns>Gibt ein Cursorobjekt an, in dem man schrittweise duch das result durchlaufen kann.</returns>
-        ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize, string additionalParameters);
+        ArticleListScroll<T> CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize, string additionalParameters);
 
         /// <summary>ruft einen einzelnen Artikel ab</summary>
         /// <param name="id">gibt die Id des Artikels an.</param>
         /// <returns>gibt den passenden Artikel zurück</returns>
-        Task<Article> GetByIdAsync(string id);
+        Task<T> GetByIdAsync(string id);
     }
 }

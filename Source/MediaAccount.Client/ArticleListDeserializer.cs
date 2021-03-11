@@ -1,12 +1,14 @@
 ﻿using Krowiorsch.MediaAccount.Model;
 using Newtonsoft.Json.Linq;
 using System;
+using Krowiorsch.MediaAccount.Model.V2;
 
 namespace Krowiorsch.MediaAccount
 {
     internal class ArticleListDeserializer
     {
-        public bool DeserializeInto(string json, ArticleListScroll scroll)
+        public bool DeserializeInto<T>(string json, ArticleListScroll<T> scroll)
+            where T : class
         {
             var token = JObject.Parse(json);
 

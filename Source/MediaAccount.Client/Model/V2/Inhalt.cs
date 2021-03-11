@@ -1,4 +1,4 @@
-﻿namespace Krowiorsch.MediaAccount.Model
+﻿namespace Krowiorsch.MediaAccount.Model.V2
 {
     /// <summary>Gibt den textuellen Inhalt des Artikels an</summary>
     public class Inhalt
