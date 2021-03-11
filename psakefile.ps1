@@ -22,6 +22,7 @@ task clean {
 task rebuild -depends clean {
   dotnet --list-runtimes
   dotnet --list-sdks
+
   
   dotnet build -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
   dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
