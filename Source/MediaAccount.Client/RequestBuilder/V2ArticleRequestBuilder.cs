@@ -37,6 +37,9 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
         public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string additionalParameters = null)
         {
+            if (dateType == RequestDateType.Updatedatum)
+                dateType = RequestDateType.Aktualisierungsdatum;
+
             var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&maxItems={maxItems}";
 
             if(additionalParameters != null)
