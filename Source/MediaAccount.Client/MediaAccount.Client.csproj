@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net472;netcoreapp2.2</TargetFrameworks>
-    <Version>0.2.8</Version>
+    <TargetFrameworks>netcoreapp2.2;netstandard2.0;netstandard2.1;</TargetFrameworks>
+    <Version>0.3.0</Version>
     <Company></Company>
     <PackageTags>MediaAccount</PackageTags>
     <PackageProjectUrl>https://github.com/CKrowiorsch/mediaaccount-client</PackageProjectUrl>

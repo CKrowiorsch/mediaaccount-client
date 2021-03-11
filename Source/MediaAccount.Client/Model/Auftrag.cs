@@ -15,7 +15,7 @@
         public string Suchbegriffsname { get; set; }
         
         /// <summary> interne Landaumedia Suchbegriffs Id </summary>
-        public int SuchbegriffsId { get; set; }
+        public string SuchbegriffsId { get; set; }
         
         /// <summary>externe Id für den Suchbegriff</summary>
         public string SuchbegriffsIdExtern { get; set; }
