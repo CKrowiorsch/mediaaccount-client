@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Krowiorsch.MediaAccount.Model.V2;
 
 namespace Krowiorsch.MediaAccount.Model
 {
@@ -21,7 +20,7 @@ namespace Krowiorsch.MediaAccount.Model
         }
 
         /// <summary> gibt alle Artikel an</summary>
-        public Article[] Items { get; set; }
+        public T[] Items { get; set; }
 
         /// <summary> gibt das gesamtergebnis an</summary>
         public int Count { get; set; }

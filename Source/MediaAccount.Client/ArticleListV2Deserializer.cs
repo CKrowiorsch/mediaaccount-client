@@ -2,13 +2,13 @@
 using Newtonsoft.Json.Linq;
 using System;
 using Krowiorsch.MediaAccount.Model.V2;
+using Krowiorsch.MediaAccount.Model.V3;
 
 namespace Krowiorsch.MediaAccount
 {
     internal class ArticleListDeserializer
     {
-        public bool DeserializeInto<T>(string json, ArticleListScroll<T> scroll)
-            where T : class
+        public bool DeserializeInto(string json, ArticleListScroll<Article> scroll)
         {
             var token = JObject.Parse(json);
 
@@ -38,6 +38,17 @@ namespace Krowiorsch.MediaAccount
                 return null;
 
             return datetime;
+        }
+
+        public bool DeserializeInto(string json, ArticleListScroll<Meldung> scroll)
+        {
+            var token = JObject.Parse(json);
+
+            scroll.NextPageLink = token["NextPageLink"].Value<string>();
+            scroll.Count = token["Count"].Value<int>();
+            scroll.Items = token["Items"].ToObject<Meldung[]>();
+
+            return true;
         }
     }
 }

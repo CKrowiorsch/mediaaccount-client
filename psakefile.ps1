@@ -8,7 +8,7 @@ properties {
 }
 
 task default -depends help
-task ci -depends rebuild,build-tests
+task ci -depends rebuild
 
 task help {
 	write-host "Buildscript for MediaAccount client"
@@ -23,11 +23,9 @@ task rebuild -depends clean {
   dotnet --list-runtimes
   dotnet --list-sdks
 
-  
+
   dotnet build -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
   dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
 }
 
-task build-tests -depends clean {
-  dotnet build -c Release -o "$bindir/MediaAccount.Client.Tests" "Source/MediaAccount.Client.Tests/MediaAccount.Client.Tests.csproj" -nologo
-}
+
