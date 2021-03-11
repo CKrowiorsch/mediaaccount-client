@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;netstandard2.0;netstandard2.1;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Version>0.3.0</Version>
     <Company></Company>
     <PackageTags>MediaAccount</PackageTags>
@@ -17,9 +17,5 @@
   
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" version="12.0.3" allowedVersions="(10.0.2," />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Reference Include="System.Net.Http" />
   </ItemGroup>
 </Project> 

@@ -20,9 +20,8 @@ task clean {
 }
 
 task rebuild -depends clean {
-  dotnet build -c Release -o "$bindir/MediaAccount.Client" "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
-
-  dotnet pack -o "$bindir/MediaAccount.Client" -clp:nosummary -v:m -nologo -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
+  dotnet build -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
+  dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
 }
 
 task build-tests -depends clean {
