@@ -1,10 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Krowiorsch.MediaAccount
 {
@@ -13,17 +13,19 @@ namespace Krowiorsch.MediaAccount
         readonly string _userAgent;
         readonly string _apiKey;
         readonly HttpClient _httpClient;
+        readonly ApiVersions _apiVersion;
 
         readonly ArticleListDeserializer _deserializer = new ArticleListDeserializer();
 
         /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
         /// <param name="apiKey">Api key</param>
         /// <param name="baseEndpoint">alternativer Endpoint</param>
-        public MediaAccountClient(string apiKey, Uri baseEndpoint = null)
+        public MediaAccountClient(string apiKey, Uri baseEndpoint = null, ApiVersions apiVersion = ApiVersions.Version2)
         {
             baseEndpoint = baseEndpoint ?? Globals.EndpointProduction;
 
             _apiKey = apiKey;
+            _apiVersion = apiVersion;
             _httpClient = new HttpClient { BaseAddress = baseEndpoint };
             _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
         }
@@ -41,7 +43,21 @@ namespace Krowiorsch.MediaAccount
 
         public ArticleListScroll CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize = 50, string additionalParameters = null)
         {
-            var request = new ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
+            string request;
+
+            switch (_apiVersion)
+            {
+                case ApiVersions.Version3:
+                    request = new V3ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
+                    break;
+                
+                case ApiVersions.Version2:
+                default:
+                    request = new V2ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
+                    break;
+
+            }
+
             return new ArticleListScroll(this) { NextPageLink = request };
         }
 
@@ -79,5 +95,12 @@ namespace Krowiorsch.MediaAccount
         {
             _httpClient.Dispose();
         }
+    }
+
+    public enum ApiVersions
+    {
+        Version2,
+            
+        Version3
     }
 }

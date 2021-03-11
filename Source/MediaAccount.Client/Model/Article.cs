@@ -43,7 +43,6 @@ namespace Krowiorsch.MediaAccount.Model
         public int? HaupttrefferId { get; set; }
 
         /// <summary> return, if the article is digital available </summary>
-        // TODO: why nullable
         public bool? IsDigitized { get; set; }
 
         public DateTime? Lieferdatum { get; set; }
@@ -70,5 +69,9 @@ namespace Krowiorsch.MediaAccount.Model
 
         /// <summary> Statistische Daten </summary>
         public Engagement Engagement { get; set; }
+
+        /// <summary> Id aus den internen Systemen. Wird für interne Zuordnungen benutzt </summary>
+        /// <remarks> steht erst ab v3 zur verfügung </remarks>
+        public string UrsprungsId { get; set; }
     }
 }
