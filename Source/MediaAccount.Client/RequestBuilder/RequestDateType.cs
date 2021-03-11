@@ -7,6 +7,7 @@
         Selektionsdatum,
         Lieferdatum,
         Updatedatum,
-        DigitalisierungsDatum
+        DigitalisierungsDatum,
+        Aktualisierungsdatum
     }
 }
