@@ -21,7 +21,7 @@ namespace Krowiorsch.MediaAccount
         /// <param name="baseEndpoint">alternativer Endpoint</param>
         public MediaAccountClient(string apiKey, Uri baseEndpoint = null, ApiVersions apiVersion = ApiVersions.Version2)
         {
-            baseEndpoint ??= Globals.EndpointProduction;
+            baseEndpoint = baseEndpoint ?? Globals.EndpointProduction;
 
             _apiKey = apiKey;
             _apiVersion = apiVersion;
