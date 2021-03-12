@@ -46,7 +46,6 @@ namespace Krowiorsch.MediaAccount
             return new ArticleListScroll<Meldung>(this, MoveScroll) { NextPageLink = request };
         }
 
-
         internal async Task<bool> MoveScroll(ArticleListScroll<Meldung> scroll)
         {
             if (string.IsNullOrEmpty(scroll.NextPageLink))
