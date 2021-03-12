@@ -43,7 +43,7 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
             if (dateType == RequestDateType.Updatedatum)
                 dateType = RequestDateType.Aktualisierungsdatum;
 
-            var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&maxItems={maxItems}";
+            var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&anzahl={maxItems}";
 
             if(additionalParameters != null)
                 url += additionalParameters;
