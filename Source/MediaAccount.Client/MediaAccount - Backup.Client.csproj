@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>0.3.3-pre1</Version>
+    <Company></Company>
+    <PackageTags>MediaAccount</PackageTags>
+    <PackageProjectUrl>https://github.com/CKrowiorsch/mediaaccount-client</PackageProjectUrl>
+    <RepositoryUrl>git@github.com:CKrowiorsch/mediaaccount-client.git</RepositoryUrl>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RootNamespace>Krowiorsch.MediaAccount</RootNamespace>
+    <Description>API to access the MediaAccount Service</Description>
+    <Authors>Christian Krowiorsch</Authors>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" version="12.0.3" allowedVersions="(10.0.2," />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Model\V2\" />
+  </ItemGroup>
+</Project> 

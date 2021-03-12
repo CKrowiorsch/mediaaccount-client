@@ -1,4 +1,4 @@
-﻿namespace Krowiorsch.MediaAccount.Model
+﻿namespace Krowiorsch.MediaAccount.Model.V2
 {
     /// <summary>
     /// Bei Landaumedia wir dein Auftrag mit mehreren Aufträgen geschaltet. Diese Objekt gibt die grundlegenden Daten für den Auftrag an.

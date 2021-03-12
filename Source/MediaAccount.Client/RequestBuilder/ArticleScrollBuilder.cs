@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using Krowiorsch.MediaAccount.Model;
+using Krowiorsch.MediaAccount.Model.V2;
 
 namespace Krowiorsch.MediaAccount.RequestBuilder
 {
@@ -11,7 +12,8 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
         {
         }
 
-        public HttpRequestMessage Create(ArticleListScroll scroll)
+        public HttpRequestMessage Create<T>(ArticleListScroll<T> scroll)
+            where T : class
         {
             var message = CreateGet();
             message.RequestUri = new Uri(scroll.NextPageLink);

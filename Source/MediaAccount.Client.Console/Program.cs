@@ -16,10 +16,10 @@ namespace Krowiorsch.MediaAccount
             var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
 
             //var client = new IntializeClient().GetClient(keyProvider.Provide(), new Uri("http://api-test.maazure.dev.local"));
-            var client = new IntializeClient().GetClient(keyProvider.Provide(), null);
+            var client = new IntializeClient().GetClientV3(keyProvider.Provide(), null);
 
             int count = 0;
-            var response = client.CreateScroll(RequestDateType.Importdatum, DateTimeOffset.Now.Date.AddDays(-14), DateTimeOffset.Now.AddMinutes(-5));
+            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14), DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
             while (response.Next().Result)
             {

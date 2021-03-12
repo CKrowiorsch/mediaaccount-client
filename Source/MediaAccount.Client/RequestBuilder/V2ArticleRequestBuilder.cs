@@ -12,6 +12,9 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
         public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string additionalParameters = null)
         {
+            if (dateType == RequestDateType.Aktualisierungsdatum)
+                dateType = RequestDateType.Updatedatum;
+
             var url = $"{_endpoint}api/v2/Articles?typ={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&maxItems={maxItems}";
 
             if(additionalParameters != null)
@@ -37,7 +40,10 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
         public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string additionalParameters = null)
         {
-            var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&maxItems={maxItems}";
+            if (dateType == RequestDateType.Updatedatum)
+                dateType = RequestDateType.Aktualisierungsdatum;
+
+            var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&anzahl={maxItems}";
 
             if(additionalParameters != null)
                 url += additionalParameters;

@@ -6,17 +6,21 @@ namespace Krowiorsch.MediaAccount.Model
     /// <summary>
     /// definiert einen Cursor für das Result
     /// </summary>
-    public class ArticleListScroll : IDisposable
+    public class ArticleListScroll<T> : IDisposable
+        where T : class
     {
-        MediaAccountClient _client;
+        readonly IMediaAccountClient<T> _client;
 
-        internal ArticleListScroll(MediaAccountClient client)
+        readonly Func<ArticleListScroll<T>, Task<bool>> _onNext;
+
+        internal ArticleListScroll(IMediaAccountClient<T> client, Func<ArticleListScroll<T>, Task<bool>> onNext)
         {
             _client = client;
+            _onNext = onNext;
         }
 
         /// <summary> gibt alle Artikel an</summary>
-        public Article[] Items { get; set; }
+        public T[] Items { get; set; }
 
         /// <summary> gibt das gesamtergebnis an</summary>
         public int Count { get; set; }
@@ -26,7 +30,7 @@ namespace Krowiorsch.MediaAccount.Model
 
         public async Task<bool> Next()
         {
-            return await _client.MoveScroll(this);
+            return await _onNext(this);
         }
 
         public void Dispose()
@@ -37,7 +41,8 @@ namespace Krowiorsch.MediaAccount.Model
 
         protected virtual void Dispose(bool disposing)
         {
-            _client.Dispose();
+            if (_client is IDisposable disposable)
+                disposable.Dispose();
         }
     }
 }

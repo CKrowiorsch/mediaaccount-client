@@ -4,9 +4,14 @@ namespace Krowiorsch.MediaAccount
 {
     public class IntializeClient
     {
-        public MediaAccountClient GetClient(string apiKey, Uri baseUri)
+        public MediaAccountClientV2 GetClientV2(string apiKey, Uri baseUri)
         {
-            return new MediaAccountClient(apiKey, baseUri, ApiVersions.Version3);
+            return new MediaAccountClientV2(apiKey, baseUri);
+        } 
+
+        public MediaAccountClientV3 GetClientV3(string apiKey, Uri baseUri)
+        {
+            return new MediaAccountClientV3(apiKey, baseUri);
         } 
     }
 }
