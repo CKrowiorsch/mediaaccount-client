@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Krowiorsch.MediaAccount.Model.V2
 {
@@ -71,8 +74,10 @@ namespace Krowiorsch.MediaAccount.Model.V2
         /// <summary> Statistische Daten </summary>
         public Engagement Engagement { get; set; }
 
-        /// <summary> Id aus den internen Systemen. Wird für interne Zuordnungen benutzt </summary>
-        /// <remarks> steht nur für Landaumedia-Interne nutzung zu Verfügung </remarks>
-        public string SourceObjectId { get; set; }
+        /// <summary> GAAW aus der Analyse </summary>
+        public decimal? GewichteterAnzeigenaequivalenzwert { get; set; }
+
+        [JsonExtensionData(ReadData = true, WriteData = false)]
+        public Dictionary<string, object> Unmapped { get; set; } = new Dictionary<string, object>();
     }
 }

@@ -19,7 +19,7 @@ namespace Krowiorsch.MediaAccount
             var client = new IntializeClient().GetClientV2(keyProvider.Provide(), null);
 
             int count = 0;
-            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14), DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
+            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14), DateTimeOffset.Now.AddMinutes(-5), 20, "&lm_internerZugriff=true");
 
             while (response.Next().Result)
             {
