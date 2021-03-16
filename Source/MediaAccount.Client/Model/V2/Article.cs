@@ -72,7 +72,7 @@ namespace Krowiorsch.MediaAccount.Model.V2
         public Engagement Engagement { get; set; }
 
         /// <summary> Id aus den internen Systemen. Wird für interne Zuordnungen benutzt </summary>
-        /// <remarks> steht erst ab v3 zur verfügung </remarks>
-        public string UrsprungsId { get; set; }
+        /// <remarks> steht nur für Landaumedia-Interne nutzung zu Verfügung </remarks>
+        public string SourceObjectId { get; set; }
     }
 }
