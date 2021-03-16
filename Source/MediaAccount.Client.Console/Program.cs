@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -16,27 +17,68 @@ namespace Krowiorsch.MediaAccount
             var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
 
             //var client = new IntializeClient().GetClient(keyProvider.Provide(), new Uri("http://api-test.maazure.dev.local"));
-            var client = new IntializeClient().GetClientV2(keyProvider.Provide(), null);
+
+            for (int i = 0; i < 5; i++)
+            {
+                Log.Information("Start Iteration-{Iteration} - {Key}", i, keyProvider.Provide());
+                MediaAccountV2(keyProvider.Provide());
+                MediaAccountV3(keyProvider.Provide());
+            }
+
+
+
+            Console.Read();
+            Console.WriteLine();
+        }
+
+        static void MediaAccountV3(string key)
+        {
+            var duration = Stopwatch.StartNew();
+            var client = new IntializeClient().GetClientV3(key, null);
 
             int count = 0;
-            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14), DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
+            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14),
+                DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
             while (response.Next().Result)
             {
-                Log.Information("New Batch >");
+                Log.Debug("New Batch >");
                 foreach (var item in response.Items)
                 {
-                    Log.Information("Article:{Id} - Date:{Date}  - Headline:{Headline}", item.Id, item.Importdatum, item.Inhalt.Headline);
+                    Log.Debug("Article:{Id} - Date:{Date}  - Headline:{Headline}", item.Id, item.Importdatum,
+                        item.Inhalt.Headline);
                 }
 
                 Log.Debug("Waiting for next Batch");
                 count += response.Items.Length;
             }
 
-            Log.Information("Found {Count} Articles", count);
+            Log.Information("[V3] Found {Count} Articles (Dauer: {Duration} ms)", count, duration.ElapsedMilliseconds);
+        }
 
-            Console.Read();
-            Console.WriteLine();
+        static void MediaAccountV2(string key)
+        {
+            var duration = Stopwatch.StartNew();
+            var client = new IntializeClient().GetClientV2(key, null);
+
+            int count = 0;
+            var response = client.CreateScroll(RequestDateType.Updatedatum, DateTimeOffset.Now.Date.AddDays(-14),
+                DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
+
+            while (response.Next().Result)
+            {
+                Log.Debug("New Batch >");
+                foreach (var item in response.Items)
+                {
+                    Log.Debug("Article:{Id} - Date:{Date}  - Headline:{Headline}", item.Id, item.Importdatum,
+                        item.Inhalt.Headline);
+                }
+
+                Log.Debug("Waiting for next Batch");
+                count += response.Items.Length;
+            }
+
+            Log.Information("[V2] Found {Count} Articles (Dauer: {Duration} ms)", count, duration.ElapsedMilliseconds);
         }
     }
 }
