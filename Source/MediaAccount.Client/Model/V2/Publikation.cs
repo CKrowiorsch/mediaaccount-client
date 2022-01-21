@@ -24,6 +24,10 @@
         public decimal? WerbepreisC4 { get; set; }
         public decimal? Bannerpreis { get; set; }
         public decimal? BannerpreisBasis { get; set; }
+
+        
+        public string Themengebiet { get; set; }
+        public string Homepage { get; set; }
         
         public string SendungsName { get; set; }
         public decimal? Sendungslaenge { get; set; }
