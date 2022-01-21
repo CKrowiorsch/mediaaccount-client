@@ -18,14 +18,12 @@ namespace Krowiorsch.MediaAccount
 
             //var client = new IntializeClient().GetClient(keyProvider.Provide(), new Uri("http://api-test.maazure.dev.local"));
 
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 Log.Information("Start Iteration-{Iteration} - {Key}", i, keyProvider.Provide());
                 MediaAccountV2(keyProvider.Provide());
                 MediaAccountV3(keyProvider.Provide());
             }
-
-
 
             Console.Read();
             Console.WriteLine();
