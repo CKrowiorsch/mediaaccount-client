@@ -17,16 +17,15 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
             var url = $"{_endpoint}api/v2/Articles?typ={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&maxItems={maxItems}";
 
-            if(additionalParameters != null)
+            if (additionalParameters != null)
                 url += additionalParameters;
 
             return url;
         }
 
-
         public static long ToUnixTimeStamp(DateTimeOffset dateTime)
         {
-            var ts = dateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            var ts = dateTime.Subtract(new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds;
             return (long)ts;
         }
     }
@@ -45,7 +44,7 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
             var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&anzahl={maxItems}";
 
-            if(additionalParameters != null)
+            if (additionalParameters != null)
                 url += additionalParameters;
 
             return url;
@@ -54,7 +53,7 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
         public static long ToUnixTimeStamp(DateTimeOffset dateTime)
         {
-            var ts = dateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            var ts = dateTime.Subtract(new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds;
             return (long)ts;
         }
     }
