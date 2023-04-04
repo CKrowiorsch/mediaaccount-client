@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
@@ -56,6 +57,7 @@ namespace Krowiorsch.MediaAccount
 
         static async Task MediaAccountV2Async(string key)
         {
+            
             var duration = Stopwatch.StartNew();
             var client = new IntializeClient().GetClientV2(key, null);
 

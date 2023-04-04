@@ -21,14 +21,8 @@ namespace Krowiorsch.MediaAccount
     {
         readonly FileInfo _fileInfo;
 
-        public FileApiKeyProvider(FileInfo apiFile)
-        {
-            _fileInfo = apiFile;
-        }
+        public FileApiKeyProvider(FileInfo apiFile) => _fileInfo = apiFile;
 
-        public string Provide()
-        {
-            return File.ReadAllText(_fileInfo.FullName);
-        }
+        public string Provide() => File.ReadAllText(_fileInfo.FullName);
     }
 }
