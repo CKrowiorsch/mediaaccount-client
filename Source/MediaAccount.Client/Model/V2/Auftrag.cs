@@ -13,7 +13,7 @@ public class Auftrag
     public string Auftragsbeschreibung { get; set; }= null!;
 
     /// <summary> Suchbegriffsname für den der Artikel gefunden wurde</summary>
-    public string? Suchbegriffsname { get; set; }4
+    public string? Suchbegriffsname { get; set; }
 
     /// <summary> interne Landaumedia Suchbegriffs Id </summary>
     public string? SuchbegriffsId { get; set; }
