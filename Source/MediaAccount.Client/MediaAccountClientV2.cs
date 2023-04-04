@@ -39,7 +39,7 @@ namespace Krowiorsch.MediaAccount
             return JsonConvert.DeserializeObject<Article>(json);
         }
 
-        public ArticleListScroll<Article> CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize = 50, string additionalParameters = null)
+        public ArticleListScroll<Article> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string additionalParameters = null)
         {
             var request = new V2ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
             return new ArticleListScroll<Article>(this, MoveScroll) { NextPageLink = request };
