@@ -38,7 +38,7 @@ namespace Krowiorsch.MediaAccount
             var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14),
                 DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
-            while (await response.Next().ConfigureAwait(false))
+            while (await response.Next())
             {
                 Log.Debug("New Batch >");
                 foreach (var item in response.Items)
@@ -63,7 +63,7 @@ namespace Krowiorsch.MediaAccount
             var response = client.CreateScroll(RequestDateType.Updatedatum, DateTimeOffset.Now.Date.AddDays(-14),
                 DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
-            while (await response.Next().ConfigureAwait(false))
+            while (await response.Next())
             {
                 Log.Debug("New Batch >");
                 foreach (var item in response.Items)
