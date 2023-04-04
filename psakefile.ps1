@@ -7,7 +7,7 @@ properties {
 }
 
 task default -depends help
-task ci -depends build
+task ci -depends build,pack
 
 task help {
   write-host "Buildscript for MediaAccount client"
