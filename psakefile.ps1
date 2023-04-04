@@ -7,18 +7,21 @@ properties {
 }
 
 task default -depends help
-task ci -depends rebuild
+task ci -depends build,pack
 
 task help {
-	write-host "Buildscript for MediaAccount client"
-	write-host "Tasks: rebuild"
+  write-host "Buildscript for MediaAccount client"
+  write-host "Tasks: rebuild"
 }
 
 task clean {
   [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
 }
 
-task rebuild -depends clean {
-  #dotnet build -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
+task build -depends clean {
+  dotnet build -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
+}
+
+task pack -depends clean {
   dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
 }
