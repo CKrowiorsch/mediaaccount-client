@@ -1,12 +1,11 @@
-﻿namespace Krowiorsch.MediaAccount.Model.V3
+﻿namespace Krowiorsch.MediaAccount.Model.V3;
+
+public enum Datum
 {
-    public enum Datum
-    {
-        Importdatum,
-        Erscheinungsdatum,
-        Selektionsdatum,
-        Lieferdatum,
-        Aktualisierungsdatum,
-        Digitalisierungsdatum
-    }
+    Importdatum,
+    Erscheinungsdatum,
+    Selektionsdatum,
+    Lieferdatum,
+    Aktualisierungsdatum,
+    Digitalisierungsdatum
 }

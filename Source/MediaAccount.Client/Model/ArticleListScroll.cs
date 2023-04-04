@@ -1,48 +1,43 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Krowiorsch.MediaAccount.Model
+namespace Krowiorsch.MediaAccount.Model;
+
+/// <summary>
+/// definiert einen Cursor für das Result
+/// </summary>
+public class ArticleListScroll<T> : IDisposable
+    where T : class
 {
-    /// <summary>
-    /// definiert einen Cursor für das Result
-    /// </summary>
-    public class ArticleListScroll<T> : IDisposable
-        where T : class
+    readonly IMediaAccountClient<T> _client;
+
+    readonly Func<ArticleListScroll<T>, Task<bool>> _onNext;
+
+    internal ArticleListScroll(IMediaAccountClient<T> client, Func<ArticleListScroll<T>, Task<bool>> onNext)
     {
-        readonly IMediaAccountClient<T> _client;
+        _client = client;
+        _onNext = onNext;
+    }
 
-        readonly Func<ArticleListScroll<T>, Task<bool>> _onNext;
+    /// <summary> gibt alle Artikel an</summary>
+    public T[] Items { get; set; }
 
-        internal ArticleListScroll(IMediaAccountClient<T> client, Func<ArticleListScroll<T>, Task<bool>> onNext)
-        {
-            _client = client;
-            _onNext = onNext;
-        }
+    /// <summary> gibt das gesamtergebnis an</summary>
+    public int Count { get; set; }
 
-        /// <summary> gibt alle Artikel an</summary>
-        public T[] Items { get; set; }
+    /// <summary>Link auf das nächste Ergebnisset</summary>
+    public string NextPageLink { get; set; }
 
-        /// <summary> gibt das gesamtergebnis an</summary>
-        public int Count { get; set; }
+    public Task<bool> Next() => _onNext(this);
 
-        /// <summary>Link auf das nächste Ergebnisset</summary>
-        public string NextPageLink { get; set; }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        public async Task<bool> Next()
-        {
-            return await _onNext(this);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_client is IDisposable disposable)
-                disposable.Dispose();
-        }
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_client is IDisposable disposable)
+            disposable.Dispose();
     }
 }
