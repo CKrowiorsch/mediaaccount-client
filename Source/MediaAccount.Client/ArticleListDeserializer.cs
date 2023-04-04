@@ -1,56 +1,54 @@
 ﻿using Krowiorsch.MediaAccount.Model;
 using Newtonsoft.Json.Linq;
-using System;
 using Krowiorsch.MediaAccount.Model.V2;
 using Krowiorsch.MediaAccount.Model.V3;
 
-namespace Krowiorsch.MediaAccount
+namespace Krowiorsch.MediaAccount;
+
+internal class ArticleListDeserializer
 {
-    internal class ArticleListDeserializer
+    public bool DeserializeInto(string json, ArticleListScroll<Article> scroll)
     {
-        public bool DeserializeInto(string json, ArticleListScroll<Article> scroll)
+        var token = JObject.Parse(json);
+
+        scroll.NextPageLink = token["NextPageLink"].Value<string>();
+        scroll.Count = token["Count"].Value<int>();
+        scroll.Items = token["Items"].ToObject<Article[]>();
+
+        foreach(var item in scroll.Items)
         {
-            var token = JObject.Parse(json);
-
-            scroll.NextPageLink = token["NextPageLink"].Value<string>();
-            scroll.Count = token["Count"].Value<int>();
-            scroll.Items = token["Items"].ToObject<Article[]>();
-
-            foreach(var item in scroll.Items)
-            {
-                Repair(item);
-            }
-
-            return true;
+            Repair(item);
         }
 
-        /// <summary>dient dazu, fehlerhaft Jsonwerte vom Server zu korrigieren</summary>
-        void Repair(Article article)
-        {
-            article.Lieferdatum = RepairDate(article.Lieferdatum);
-            article.UpdateDatum = RepairDate(article.UpdateDatum);
-            article.Digitalisierungsdatum = RepairDate(article.Digitalisierungsdatum);
-        }
+        return true;
+    }
 
-        static DateTime? RepairDate(DateTime? datetime)
-        {
-            if (datetime.HasValue && datetime.Equals(DateTime.MinValue))
-                return null;
+    /// <summary>dient dazu, fehlerhaft Jsonwerte vom Server zu korrigieren</summary>
+    void Repair(Article article)
+    {
+        article.Lieferdatum = RepairDate(article.Lieferdatum);
+        article.UpdateDatum = RepairDate(article.UpdateDatum);
+        article.Digitalisierungsdatum = RepairDate(article.Digitalisierungsdatum);
+    }
 
-            return datetime;
-        }
+    static DateTime? RepairDate(DateTime? datetime)
+    {
+        if (datetime.HasValue && datetime.Equals(DateTime.MinValue))
+            return null;
 
-        public bool DeserializeInto(string json, ArticleListScroll<Meldung> scroll)
-        {
-            var token = JObject.Parse(json);
+        return datetime;
+    }
 
-            scroll.NextPageLink = token["NextPageLink"].Value<string>();
-            scroll.Count = token["Count"].Value<int>();
-            scroll.Items = token["Items"].ToObject<Meldung[]>();
+    public bool DeserializeInto(string json, ArticleListScroll<Meldung> scroll)
+    {
+        var token = JObject.Parse(json);
 
-            return true;
-        }
+        scroll.NextPageLink = token["NextPageLink"].Value<string>();
+        scroll.Count = token["Count"].Value<int>();
+        scroll.Items = token["Items"].ToObject<Meldung[]>();
+
+        return true;
+    }
 
         
-    }
 }

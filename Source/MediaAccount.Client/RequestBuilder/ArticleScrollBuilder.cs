@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.Model.V2;
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Krowiorsch.MediaAccount.RequestBuilder
+﻿namespace Krowiorsch.MediaAccount.RequestBuilder
 {
     public enum RequestDateType
     {
