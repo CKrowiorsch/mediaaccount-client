@@ -11,8 +11,8 @@ Ein Nuget Package für den Zugriff auf die Api des MediaAccount. <http://api.med
 
 var client = new MediaAccountClientV2("<APIKEY>");
 
-var start = DateTimeOffset.Now.Date.AddDays(-14);
-var ende = DateTimeOffset.Now;
+var start = DateTime.Now.Date.AddDays(-14);
+var ende = DateTime.Now;
 
 var response = client.CreateScroll(RequestDateType.Updatedatum, start, ende);
 
@@ -32,7 +32,7 @@ while (await response.Next())
 
 var client = new MediaAccountClientV2("<APIKEY>");
 var token = new CancellationToken();
-var start = DateTimeOffset.Now.Date.AddDays(-14);
+var start = DateTime.Now.Date.AddDays(-14);
 
 while(!token.IsCancellationRequested)
 {
@@ -48,9 +48,9 @@ while(!token.IsCancellationRequested)
 }
 
 
-static async Task<Article[]> LadeArtikelFuerZeitraum(MediaAccountClientV2 client, DateTimeOffset start) 
+static async Task<Article[]> LadeArtikelFuerZeitraum(MediaAccountClientV2 client, DateTime start) 
 {
-    var ende = DateTimeOffset.Now;
+    var ende = DateTime.Now;
     var response = client.CreateScroll(RequestDateType.Updatedatum, start, ende);
 
     vat list = new List<Article>();
