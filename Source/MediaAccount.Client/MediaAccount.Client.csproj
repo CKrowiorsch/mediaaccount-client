@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 		<Version>0.3.10-pre2</Version>
-		<Company></Company>
 		<PackageTags>MediaAccount</PackageTags>
 		<PackageProjectUrl>https://github.com/CKrowiorsch/mediaaccount-client</PackageProjectUrl>
 		<RepositoryUrl>git@github.com:CKrowiorsch/mediaaccount-client.git</RepositoryUrl>
@@ -16,6 +15,9 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<LangVersion>latest</LangVersion>
 		<NoWarn>1701;1702;1591</NoWarn>
+
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>

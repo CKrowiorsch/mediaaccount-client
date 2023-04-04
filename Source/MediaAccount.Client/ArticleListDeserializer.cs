@@ -11,9 +11,9 @@ internal class ArticleListDeserializer
     {
         var token = JObject.Parse(json);
 
-        scroll.NextPageLink = token["NextPageLink"].Value<string>();
-        scroll.Count = token["Count"].Value<int>();
-        scroll.Items = token["Items"].ToObject<Article[]>();
+        scroll.NextPageLink = token["NextPageLink"]?.Value<string>();
+        scroll.Count = token["Count"]?.Value<int>() ?? 0;
+        scroll.Items = token["Items"]?.ToObject<Article[]>() ?? Array.Empty<Article>();
 
         foreach(var item in scroll.Items)
         {
@@ -43,9 +43,9 @@ internal class ArticleListDeserializer
     {
         var token = JObject.Parse(json);
 
-        scroll.NextPageLink = token["NextPageLink"].Value<string>();
-        scroll.Count = token["Count"].Value<int>();
-        scroll.Items = token["Items"].ToObject<Meldung[]>();
+        scroll.NextPageLink = token["NextPageLink"]?.Value<string>();
+        scroll.Count = token["Count"]?.Value<int>() ?? 0;
+        scroll.Items = token["Items"]?.ToObject<Meldung[]>() ?? Array.Empty<Meldung>();
 
         return true;
     }

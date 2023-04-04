@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Krowiorsch.MediaAccount.Model;
+﻿using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.Model.V2;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Newtonsoft.Json;
@@ -18,7 +16,7 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
     /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
     /// <param name="apiKey">Api key</param>
     /// <param name="baseEndpoint">alternativer Endpoint</param>
-    public MediaAccountClientV2(string apiKey, Uri baseEndpoint = null)
+    public MediaAccountClientV2(string apiKey, Uri? baseEndpoint = null)
     {
         baseEndpoint ??= Globals.EndpointProduction;
 
@@ -27,7 +25,7 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
-    public async Task<Article> GetByIdAsync(string id)
+    public async Task<Article?> GetByIdAsync(string id)
     {
         var message = Create($"api/v2/Articles/{id}");
         var result = await _httpClient.SendAsync(message);
@@ -38,7 +36,7 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
         return JsonConvert.DeserializeObject<Article>(json);
     }
 
-    public ArticleListScroll<Article> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string additionalParameters = null)
+    public ArticleListScroll<Article> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string? additionalParameters = null)
     {
         var request = new V2ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
         return new ArticleListScroll<Article>(this, MoveScroll) { NextPageLink = request };
@@ -74,8 +72,5 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
         GC.SuppressFinalize(this);
     }
 
-    protected virtual void Dispose(bool disposable)
-    {
-        _httpClient.Dispose();
-    }
+    protected virtual void Dispose(bool disposable) => _httpClient.Dispose();
 }
