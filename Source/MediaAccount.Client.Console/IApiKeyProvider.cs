@@ -19,7 +19,7 @@ namespace Krowiorsch.MediaAccount
 
     class FileApiKeyProvider : IApiKeyProvider
     {
-        FileInfo _fileInfo;
+        readonly FileInfo _fileInfo;
 
         public FileApiKeyProvider(FileInfo apiFile)
         {
