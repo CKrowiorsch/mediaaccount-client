@@ -3,7 +3,6 @@ $erroractionpreference = "Stop"
 properties {
   $location = (get-location);
   $outdir = (join-path $location "Build");
-  $artifactsdir = (join-path $outdir "Artifacts");
   $bindir = (join-path $outdir "Bin");
 }
 
@@ -20,8 +19,6 @@ task clean {
 }
 
 task rebuild -depends clean {
-  dotnet build -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
+  #dotnet build -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" -nologo
   dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
 }
-
-
