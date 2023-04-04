@@ -1,4 +1,4 @@
-name: searcher
+name: mediaaccount-client
 on:
   push:
     branches: ["master"]
