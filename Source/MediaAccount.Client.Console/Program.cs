@@ -7,7 +7,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Krowiorsch.MediaAccount
 {
-    public class Program
+    public static class Program
     {
         public static async Task Main()
         {
