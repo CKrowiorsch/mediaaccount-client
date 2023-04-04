@@ -16,10 +16,10 @@ public interface IMediaAccountClient<T>
     /// <param name="batchSize">gibt an, in welcher Batchgrösse die Daten abgerufen werden sollen</param>
     /// <param name="additionalParameters">ermöglicht die übergabe von benutzerdefinierten Queryparametern</param>
     /// <returns>Gibt ein Cursorobjekt an, in dem man schrittweise duch das result durchlaufen kann.</returns>
-    ArticleListScroll<T> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize, string additionalParameters);
+    ArticleListScroll<T> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize, string? additionalParameters);
 
     /// <summary>ruft einen einzelnen Artikel ab</summary>
     /// <param name="id">gibt die Id des Artikels an.</param>
     /// <returns>gibt den passenden Artikel zurück</returns>
-    Task<T> GetByIdAsync(string id);
+    Task<T?> GetByIdAsync(string id);
 }
