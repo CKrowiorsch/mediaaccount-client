@@ -25,6 +25,7 @@
         public decimal? Bannerpreis { get; set; }
         public decimal? BannerpreisBasis { get; set; }
 
+        public string PublizistischeEinheit { get; set; }
         
         public string Themengebiet { get; set; }
         public string Homepage { get; set; }
