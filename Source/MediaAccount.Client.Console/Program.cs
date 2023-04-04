@@ -12,7 +12,6 @@ namespace Krowiorsch.MediaAccount
     {
         public static async Task Main()
         {
-
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss} [{Level:u3}]  {Message} {NewLine}{Exception}", theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
@@ -36,8 +35,8 @@ namespace Krowiorsch.MediaAccount
             var client = new IntializeClient().GetClientV3(key, null);
 
             var count = 0;
-            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTimeOffset.Now.Date.AddDays(-14),
-                DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
+            var response = client.CreateScroll(RequestDateType.Aktualisierungsdatum, DateTime.Now.Date.AddDays(-14),
+                DateTime.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
             while (await response.Next())
             {
@@ -62,8 +61,8 @@ namespace Krowiorsch.MediaAccount
             var client = new IntializeClient().GetClientV2(key, null);
 
             var count = 0;
-            var response = client.CreateScroll(RequestDateType.Updatedatum, DateTimeOffset.Now.Date.AddDays(-14),
-                DateTimeOffset.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
+            var response = client.CreateScroll(RequestDateType.Updatedatum, DateTime.Now.Date.AddDays(-14),
+                DateTime.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
             while (await response.Next())
             {
