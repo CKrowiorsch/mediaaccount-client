@@ -14,14 +14,14 @@ namespace Krowiorsch.MediaAccount
         readonly string _apiKey;
         readonly HttpClient _httpClient;
 
-        readonly ArticleListDeserializer _deserializer = new ArticleListDeserializer();
+        readonly ArticleListDeserializer _deserializer = new();
 
         /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
         /// <param name="apiKey">Api key</param>
         /// <param name="baseEndpoint">alternativer Endpoint</param>
         public MediaAccountClientV2(string apiKey, Uri baseEndpoint = null)
         {
-            baseEndpoint = baseEndpoint ?? Globals.EndpointProduction;
+            baseEndpoint ??= Globals.EndpointProduction;
 
             _apiKey = apiKey;
             _httpClient = new HttpClient { BaseAddress = baseEndpoint };
@@ -41,8 +41,7 @@ namespace Krowiorsch.MediaAccount
 
         public ArticleListScroll<Article> CreateScroll(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int batchSize = 50, string additionalParameters = null)
         {
-            var request = new V2ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters); ;
-
+            var request = new V2ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
             return new ArticleListScroll<Article>(this, MoveScroll) { NextPageLink = request };
         }
 

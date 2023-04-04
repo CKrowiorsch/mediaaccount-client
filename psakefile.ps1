@@ -1,21 +1,21 @@
 $erroractionpreference = "Stop"
 
 properties {
-  $location = (get-location);
-  $outdir = (join-path $location "Build");
-  $bindir = (join-path $outdir "Bin");
+  $location = (get-location)
+  $outdir = (join-path $location "Build")
+  $bindir = (join-path $outdir "Bin")
 }
 
 task default -depends help
 task ci -depends build,pack
 
 task help {
-  write-host "Buildscript for MediaAccount client"
-  write-host "Tasks: rebuild"
+  Write-Output "Buildscript for MediaAccount client"
+  Write-Output "Tasks: rebuild"
 }
 
 task clean {
-  [void](rmdir -force -recurse $outdir -ea SilentlyContinue)
+  [void](Remove-Item -force -recurse $outdir -ea SilentlyContinue)
 }
 
 task build -depends clean {
