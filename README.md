@@ -1,14 +1,11 @@
-# MediaAccount.Client
-
 [![Build status](https://ci.appveyor.com/api/projects/status/69ia7yqncekogjdx?svg=true)](https://ci.appveyor.com/project/ChristianKrowiorsch/mediaaccount-client)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/92eec029e6d6437cb44ef7c8f784d8d3)](https://app.codacy.com/gh/CKrowiorsch/mediaaccount-client/dashboard)
 
-
 Ein Nuget Package für den Zugriff auf die Api des MediaAccount. <http://api.media-account.de/>
 
-## Benutzung
+# Benutzung
 
-### Einmaliger Abruf
+## Einmaliger Abruf
 
 ```csharp
 
@@ -29,7 +26,7 @@ while (await response.Next())
 
 ```
 
-### Streaming
+## Streaming
 
 ```csharp
 
