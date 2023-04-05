@@ -19,8 +19,14 @@ jobs:
           dotnet-version: 6.x.x
       - run: dotnet pack -o dist -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
 
-      - name: Publish package to NuGet.org
-        uses: nuget/setup-nuget@v1
-        with:
-          nuget-api-key: ${{ secrets.NUGET_KEY }}
-          nuget-packages: dist/*.nupkg
+      # - name: Publish package to NuGet.org
+      #   uses: nuget/setup-nuget@v1
+      #   with:
+      #     nuget-api-key: ${{ secrets.NUGET_KEY }}
+      #     nuget-packages: dist/*.nupkg
+
+      - name: Publish NuGet package
+        run: |
+          foreach($file in (Get-ChildItem "dist" -Recurse -Include *.nupkg)) {
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          }      
