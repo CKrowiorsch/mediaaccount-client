@@ -26,5 +26,4 @@ jobs:
       #     nuget-packages: dist/*.nupkg
 
       - name: Publish NuGet package
-        run: |
-          dotnet nuget push dist --api-key "${{ secrets.NUGET_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push dist --api-key "${{ secrets.NUGET_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
