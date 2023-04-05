@@ -7,7 +7,7 @@ properties {
 }
 
 task default -depends help
-task ci -depends build,pack
+task ci -depends build, pack
 
 task help {
   Write-Output "Buildscript for MediaAccount client"
@@ -19,9 +19,10 @@ task clean {
 }
 
 task build -depends clean {
-  dotnet build -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
+  exec { dotnet build -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" }
+  
 }
 
 task pack -depends clean {
-  dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
+  exec { dotnet pack -o "$bindir/MediaAccount.Client" -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj" }
 }
