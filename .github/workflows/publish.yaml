@@ -1,0 +1,32 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+    
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.x.x
+      - run: dotnet pack -o dist -c Release "Source/MediaAccount.Client/MediaAccount.Client.csproj"
+
+      # - name: Publish package to NuGet.org
+      #   uses: nuget/setup-nuget@v1
+      #   with:
+      #     nuget-api-key: ${{ secrets.NUGET_KEY }}
+      #     nuget-packages: dist/*.nupkg
+
+      - name: Publish NuGet package
+        run: |
+          foreach($file in (Get-ChildItem "dist" -Recurse -Include *.nupkg)) {
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          }      
