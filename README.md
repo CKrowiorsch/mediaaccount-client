@@ -5,9 +5,9 @@
 
 Ein Nuget Package für den Zugriff auf die Api des MediaAccount. <http://api.media-account.de/>
 
-# Benutzung
+## Benutzung
 
-## Einmaliger Abruf
+### Einmaliger Abruf
 
 ```csharp
 
@@ -28,7 +28,7 @@ while (await response.Next())
 
 ```
 
-## Streaming
+### Streaming
 
 ```csharp
 

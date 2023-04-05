@@ -18,7 +18,7 @@ public class MediaAccountClientV3 : IDisposable, IMediaAccountClient<Meldung>
     /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
     /// <param name="apiKey">Api key</param>
     /// <param name="baseEndpoint">alternativer Endpoint</param>
-    public MediaAccountClientV3(string apiKey, Uri baseEndpoint = null)
+    public MediaAccountClientV3(string apiKey, Uri? baseEndpoint = null)
     {
         baseEndpoint ??= Globals.EndpointProduction;
 
@@ -27,7 +27,7 @@ public class MediaAccountClientV3 : IDisposable, IMediaAccountClient<Meldung>
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
-    public async Task<Meldung> GetByIdAsync(string id)
+    public async Task<Meldung?> GetByIdAsync(string id)
     {
         var message = Create($"api/v3/meldung/{id}");
         var result = await _httpClient.SendAsync(message);
@@ -38,7 +38,7 @@ public class MediaAccountClientV3 : IDisposable, IMediaAccountClient<Meldung>
         return JsonConvert.DeserializeObject<Meldung>(json);
     }
 
-    public ArticleListScroll<Meldung> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string additionalParameters = null)
+    public ArticleListScroll<Meldung> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string? additionalParameters = null)
     {
         var request = new V3ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
         return new ArticleListScroll<Meldung>(this, MoveScroll) { NextPageLink = request };

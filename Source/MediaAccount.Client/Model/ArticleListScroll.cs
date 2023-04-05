@@ -19,13 +19,13 @@ public class ArticleListScroll<T> : IDisposable
     }
 
     /// <summary> gibt alle Artikel an</summary>
-    public T[] Items { get; set; }
+    public T[] Items { get; set; } = Array.Empty<T>();
 
     /// <summary> gibt das gesamtergebnis an</summary>
     public int Count { get; set; }
 
     /// <summary>Link auf das nächste Ergebnisset</summary>
-    public string NextPageLink { get; set; }
+    public string? NextPageLink { get; set; }
 
     public Task<bool> Next() => _onNext(this);
 

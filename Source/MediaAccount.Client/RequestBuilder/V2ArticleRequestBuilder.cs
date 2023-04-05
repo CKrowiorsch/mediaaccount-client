@@ -9,7 +9,7 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
         {
         }
 
-        public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string additionalParameters = null)
+        public string? CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string? additionalParameters = null)
         {
             if (dateType == RequestDateType.Aktualisierungsdatum)
                 dateType = RequestDateType.Updatedatum;
@@ -36,7 +36,7 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
         {
         }
 
-        public string CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string additionalParameters = null)
+        public string? CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string? additionalParameters = null)
         {
             if (dateType == RequestDateType.Updatedatum)
                 dateType = RequestDateType.Aktualisierungsdatum;
