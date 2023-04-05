@@ -3,7 +3,7 @@ name: publish
 on:
   release:
     types: [published]
-    
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -27,6 +27,4 @@ jobs:
 
       - name: Publish NuGet package
         run: |
-          foreach($file in (Get-ChildItem "dist" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.NUGET_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          }      
+          dotnet nuget push dist --api-key "${{ secrets.NUGET_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
