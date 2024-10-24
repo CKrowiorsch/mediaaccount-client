@@ -6,7 +6,7 @@ public class Publikation
     public string? Publikationsname { get; set; }
     public string? TvSenderName { get; set; }
     public string? PublikationsLand { get; set; }
-    public int Reichweite { get; set; }
+    public long Reichweite { get; set; }
     public long? Visits { get; set; }
     public long? PageImpressions { get; set; }
     public decimal? VerkaufteAuflage { get; set; }
