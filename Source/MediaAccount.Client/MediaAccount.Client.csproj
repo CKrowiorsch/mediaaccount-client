@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<PackageTags>MediaAccount</PackageTags>
 		<PackageProjectUrl>https://github.com/CKrowiorsch/mediaaccount-client</PackageProjectUrl>
 		<RepositoryUrl>git@github.com:CKrowiorsch/mediaaccount-client.git</RepositoryUrl>
