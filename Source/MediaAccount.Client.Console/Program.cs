@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
@@ -57,7 +59,16 @@ public static class Program
     {
             
         var duration = Stopwatch.StartNew();
-        var client = new IntializeClient().GetClientV2(key, null);
+        using var httpClient = new HttpClient()
+        {
+            DefaultRequestHeaders =
+            {
+                Authorization = new AuthenticationHeaderValue("Bearer", "")
+            },
+            BaseAddress = new Uri("http://api.media-account.de")
+        };
+        
+        var client = new IntializeClient().GetClientV2(httpClient);
 
         var count = 0;
         var response = client.CreateScroll(RequestDateType.Updatedatum, DateTime.Now.Date.AddDays(-14),

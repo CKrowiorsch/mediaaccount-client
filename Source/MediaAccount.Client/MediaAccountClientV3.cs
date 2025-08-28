@@ -40,7 +40,7 @@ public class MediaAccountClientV3 : IDisposable, IMediaAccountClient<Meldung>
 
     public ArticleListScroll<Meldung> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string? additionalParameters = null)
     {
-        var request = new V3ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
+        var request = new V3ArticleRequestBuilder(_httpClient.BaseAddress).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
         return new ArticleListScroll<Meldung>(this, MoveScroll) { NextPageLink = request };
     }
 
@@ -49,7 +49,7 @@ public class MediaAccountClientV3 : IDisposable, IMediaAccountClient<Meldung>
         if (string.IsNullOrEmpty(scroll.NextPageLink))
             return false;
 
-        var request = new ArticleScrollBuilder(_httpClient.BaseAddress, _apiKey).Create(scroll);
+        var request = new ArticleScrollBuilder(_httpClient.BaseAddress).Create(scroll);
         var result = await _httpClient.SendAsync(request).ConfigureAwait(false);
         result.EnsureSuccessStatusCode();
         var json = await result.Content.ReadAsStringAsync();
