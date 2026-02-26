@@ -62,9 +62,9 @@ public class MediaAccountCursorClient(HttpClient client)
     {
         if (scroll.NaechsterAbrufUrl is null)
         {
-            return new ScrollResponse()
+            return new ScrollResponse
             {
-                Liste = Array.Empty<Article>(),
+                Liste = [],
                 AnzahlGesamt = scroll.AnzahlGesamt,
                 NaechsterAbrufUrl = null,
                 NaechsterCursor = null

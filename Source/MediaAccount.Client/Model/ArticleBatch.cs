@@ -1,6 +1,6 @@
 using Krowiorsch.MediaAccount.Model.V2;
 
-namespace Krowiorsch.MediaAccount;
+namespace Krowiorsch.MediaAccount.Model;
 
 public class ArticleBatch
 {

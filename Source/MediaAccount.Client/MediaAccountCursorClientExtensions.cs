@@ -1,5 +1,7 @@
 #if NETSTANDARD2_1_OR_GREATER
 
+using System.Runtime.CompilerServices;
+using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.Model.V2;
 
 namespace Krowiorsch.MediaAccount;
@@ -11,11 +13,11 @@ public static class MediaAccountCursorClientExtensions
         DateTime start,
         int batchSize,
         IDictionary<string, string>? parameter = null,
-        CancellationToken cancellation = default)
+        [EnumeratorCancellation] CancellationToken cancellation = default)
     {
         var response = await client.SendRequest(start, batchSize, parameter, cancellation);
 
-        if (response.Liste != null && response.Liste.Length > 0)
+        if (response.Liste is { Length: > 0 })
         {
             yield return new ArticleBatch(
                 response.Liste,
@@ -27,7 +29,7 @@ public static class MediaAccountCursorClientExtensions
         {
             response = await client.SendRequest(response, cancellation);
 
-            if (response.Liste != null && response.Liste.Length > 0)
+            if (response.Liste is { Length: > 0 })
             {
                 yield return new ArticleBatch(
                     response.Liste,
@@ -42,7 +44,7 @@ public static class MediaAccountCursorClientExtensions
         DateTime start,
         int batchSize,
         IDictionary<string, string>? parameter = null,
-        CancellationToken cancellation = default)
+        [EnumeratorCancellation] CancellationToken cancellation = default)
     {
         await foreach (var batch in client.GetArticleBatchesAsync(start, batchSize, parameter, cancellation))
         {
