@@ -13,30 +13,11 @@ public class MediaAccountClientV2 : IMediaAccountClient<Article>
 
     readonly ArticleListDeserializer _deserializer = new();
 
-    /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
-    /// <param name="apiKey">Api key</param>
-    /// <param name="baseEndpoint">alternativer Endpoint</param>
-    [Obsolete("Use HttpClient Construtkru")]
-    public MediaAccountClientV2(string apiKey, Uri? baseEndpoint = null)
-    {
-        baseEndpoint ??= Globals.EndpointProduction;
-
-        _httpClient = new HttpClient
-        {
-            BaseAddress = baseEndpoint,
-            DefaultRequestHeaders =
-            {
-                Authorization = new AuthenticationHeaderValue("api_key", apiKey)
-            }
-        };
-        _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
-    }
-
     public MediaAccountClientV2(HttpClient client)
     {
         _httpClient = client ?? throw new ArgumentNullException(nameof(client));
         _httpClient.BaseAddress ??= Globals.EndpointProduction;
-        if (!_httpClient.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.");
+        if (!_httpClient.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.", nameof(client));
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
