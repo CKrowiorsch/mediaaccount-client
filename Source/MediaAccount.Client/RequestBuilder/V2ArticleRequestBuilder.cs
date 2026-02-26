@@ -29,31 +29,5 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
         }
     }
 
-    public class V3ArticleRequestBuilder : BaseRequestBuilder
-    {
-        public V3ArticleRequestBuilder(Uri endpoint)
-            : base(endpoint)
-        {
-        }
 
-        public string? CreateInitialUrl(RequestDateType dateType, DateTimeOffset start, DateTimeOffset end, int maxItems = 150, string? additionalParameters = null)
-        {
-            if (dateType == RequestDateType.Updatedatum)
-                dateType = RequestDateType.Aktualisierungsdatum;
-
-            var url = $"{_endpoint}api/v3/meldungen?datum={dateType}&von={ToUnixTimeStamp(start)}&bis={ToUnixTimeStamp(end)}&anzahl={maxItems}";
-
-            if (additionalParameters != null)
-                url += additionalParameters;
-
-            return url;
-        }
-
-
-        public static long ToUnixTimeStamp(DateTimeOffset dateTime)
-        {
-            var ts = dateTime.Subtract(new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds;
-            return (long)ts;
-        }
-    }
 }
