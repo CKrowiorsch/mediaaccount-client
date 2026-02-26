@@ -1,27 +1,23 @@
-﻿using Krowiorsch.MediaAccount.Model;
+﻿using System.Net.Http.Headers;
+using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.Model.V2;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount;
 
-public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
+public class MediaAccountClientV2 : IMediaAccountClient<Article>
 {
     readonly string _userAgent;
-    readonly string _apiKey;
     readonly HttpClient _httpClient;
 
     readonly ArticleListDeserializer _deserializer = new();
 
-    /// <summary>Erzeugt einen Client für den Gegebenen ApiKey. Wenn kein Endpunkt angegeben wird, wird das Produktivsystem benutzt.</summary>
-    /// <param name="apiKey">Api key</param>
-    /// <param name="baseEndpoint">alternativer Endpoint</param>
-    public MediaAccountClientV2(string apiKey, Uri? baseEndpoint = null)
+    public MediaAccountClientV2(HttpClient client)
     {
-        baseEndpoint ??= Globals.EndpointProduction;
-
-        _apiKey = apiKey;
-        _httpClient = new HttpClient { BaseAddress = baseEndpoint };
+        _httpClient = client ?? throw new ArgumentNullException(nameof(client));
+        _httpClient.BaseAddress ??= Globals.EndpointProduction;
+        if (!_httpClient.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.", nameof(client));
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
@@ -38,7 +34,7 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
 
     public ArticleListScroll<Article> CreateScroll(RequestDateType dateType, DateTime start, DateTime end, int batchSize = 50, string? additionalParameters = null)
     {
-        var request = new V2ArticleRequestBuilder(_httpClient.BaseAddress, _apiKey).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
+        var request = new V2ArticleRequestBuilder(_httpClient.BaseAddress).CreateInitialUrl(dateType, start, end, batchSize, additionalParameters);
         return new ArticleListScroll<Article>(this, MoveScroll) { NextPageLink = request };
     }
 
@@ -48,7 +44,7 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
         if (string.IsNullOrEmpty(scroll.NextPageLink))
             return false;
 
-        var request = new ArticleScrollBuilder(_httpClient.BaseAddress, _apiKey).Create(scroll);
+        var request = new ArticleScrollBuilder(_httpClient.BaseAddress).Create(scroll);
         var result = await _httpClient.SendAsync(request).ConfigureAwait(false);
         result.EnsureSuccessStatusCode();
         var json = await result.Content.ReadAsStringAsync();
@@ -59,18 +55,9 @@ public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
     HttpRequestMessage Create(string endpoint)
     {
         var message = new HttpRequestMessage(HttpMethod.Get, endpoint);
-        message.Headers.Add("api_key", _apiKey);
-        message.Headers.Add("User-Agent", _userAgent);
+        message.Headers.UserAgent.ParseAdd(_userAgent);
         message.Headers.Add("Accept", "application/json");
 
         return message;
     }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposable) => _httpClient.Dispose();
 }

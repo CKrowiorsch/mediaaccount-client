@@ -6,8 +6,8 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 {
     public class ArticleScrollBuilder : BaseRequestBuilder
     {
-        public ArticleScrollBuilder(Uri endpoint, string apiKey)
-            : base(endpoint, apiKey)
+        public ArticleScrollBuilder(Uri endpoint)
+            : base(endpoint)
         {
         }
 

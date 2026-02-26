@@ -4,8 +4,8 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 {
     public class V2ArticleRequestBuilder : BaseRequestBuilder
     {
-        public V2ArticleRequestBuilder(Uri endpoint, string apiKey)
-            : base(endpoint, apiKey)
+        public V2ArticleRequestBuilder(Uri endpoint)
+            : base(endpoint)
         {
         }
 
@@ -31,8 +31,8 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
 
     public class V3ArticleRequestBuilder : BaseRequestBuilder
     {
-        public V3ArticleRequestBuilder(Uri endpoint, string apiKey)
-            : base(endpoint, apiKey)
+        public V3ArticleRequestBuilder(Uri endpoint)
+            : base(endpoint)
         {
         }
 
