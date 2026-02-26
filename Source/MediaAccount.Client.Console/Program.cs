@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Serilog;
@@ -17,7 +16,7 @@ public static class Program
             .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss} [{Level:u3}]  {Message} {NewLine}{Exception}", theme: AnsiConsoleTheme.Code)
             .CreateLogger();
 
-        var keyProvider = new FileApiKeyProvider(new System.IO.FileInfo(@"c:\Daten\MediaAccount.txt"));
+        var keyProvider = new ManualKeyProvider();
 
         for (var i = 0; i < 5; i++)
         {
@@ -31,15 +30,17 @@ public static class Program
 
     static async Task MediaAccountV2Async(string key)
     {
-            
+
         var duration = Stopwatch.StartNew();
         using var httpClient = new HttpClient
         {
-            BaseAddress = new Uri("http://api.media-account.de")
+            BaseAddress = new Uri("http://api.media-account.de"),
+            DefaultRequestHeaders =
+            {
+                {"api_key",key}
+            }
         };
-        
-        httpClient.DefaultRequestHeaders.Add("api_key", key);
-        
+
         var client = new IntializeClient().GetClientV2(httpClient);
 
         var count = 0;
