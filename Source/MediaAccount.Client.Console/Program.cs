@@ -59,14 +59,12 @@ public static class Program
     {
             
         var duration = Stopwatch.StartNew();
-        using var httpClient = new HttpClient()
+        using var httpClient = new HttpClient
         {
-            DefaultRequestHeaders =
-            {
-                Authorization = new AuthenticationHeaderValue("Bearer", "")
-            },
             BaseAddress = new Uri("http://api.media-account.de")
         };
+        
+        httpClient.DefaultRequestHeaders.Add("api_key", key);
         
         var client = new IntializeClient().GetClientV2(httpClient);
 
