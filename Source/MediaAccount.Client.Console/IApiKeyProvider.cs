@@ -22,11 +22,7 @@ class ManualKeyProvider : IApiKeyProvider
     }
 }
 
-class FileApiKeyProvider : IApiKeyProvider
+class FileApiKeyProvider(FileInfo apiFile) : IApiKeyProvider
 {
-    readonly FileInfo _fileInfo;
-
-    public FileApiKeyProvider(FileInfo apiFile) => _fileInfo = apiFile;
-
-    public string Provide() => File.ReadAllText(_fileInfo.FullName);
+    public string Provide() => File.ReadAllText(apiFile.FullName);
 }
