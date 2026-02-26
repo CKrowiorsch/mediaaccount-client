@@ -10,10 +10,15 @@ interface IApiKeyProvider
 
 class ManualKeyProvider : IApiKeyProvider
 {
+    string _key;
+
     public string Provide()
     {
+        if (!string.IsNullOrEmpty(_key))
+            return _key;
+
         Console.WriteLine("Please provide Api Key:");
-        return Console.ReadLine();
+        return _key = Console.ReadLine();
     }
 }
 
