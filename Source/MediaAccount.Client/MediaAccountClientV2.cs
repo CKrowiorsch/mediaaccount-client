@@ -6,10 +6,11 @@ using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount;
 
-public class MediaAccountClientV2 : IMediaAccountClient<Article>
+public class MediaAccountClientV2 : IDisposable, IMediaAccountClient<Article>
 {
     readonly string _userAgent;
     readonly HttpClient _httpClient;
+    readonly bool _ownsHttpClient;
 
     readonly ArticleListDeserializer _deserializer = new();
 
@@ -29,6 +30,7 @@ public class MediaAccountClientV2 : IMediaAccountClient<Article>
                 Authorization = new AuthenticationHeaderValue("api_key", apiKey)
             }
         };
+        _ownsHttpClient = true;
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
@@ -37,6 +39,7 @@ public class MediaAccountClientV2 : IMediaAccountClient<Article>
         _httpClient = client ?? throw new ArgumentNullException(nameof(client));
         _httpClient.BaseAddress ??= Globals.EndpointProduction;
         if (!_httpClient.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.");
+        _ownsHttpClient = false;
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
@@ -78,5 +81,19 @@ public class MediaAccountClientV2 : IMediaAccountClient<Article>
         message.Headers.Add("Accept", "application/json");
 
         return message;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing && _ownsHttpClient)
+        {
+            _httpClient.Dispose();
+        }
     }
 }
