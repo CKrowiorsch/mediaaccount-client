@@ -92,10 +92,4 @@ public class MediaAccountCursorClient(HttpClient client)
 
     static HttpRequestMessage CreateRequest(string url)
         => new(HttpMethod.Get, url);
-
-
-    public Task<Article> GetByIdAsync(string id)
-    {
-        throw new NotImplementedException();
-    }
 }
