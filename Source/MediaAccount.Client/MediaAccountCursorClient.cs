@@ -8,19 +8,19 @@ public class MediaAccountCursorClient(HttpClient client)
     public record ScrollResponse
     {
         public long AnzahlGesamt { get; set; }
-        public long AnzahlVerbleibed { get; set; }
+        public long AnzahlVerblieben { get; set; }
         public string? NaechsterCursor { get; set; }
         public string? NaechsterAbrufUrl { get; set; }
 
         public Article[]? Liste { get; set; }
     }
 
-    public async Task<ScrollResponse> SendRequest(DateTime start, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
+    public async Task<ScrollResponse> SendRequest(DateTime importiertAb, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
     {
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
             { "anzahl", batchSize.ToString() },
-            { "startdatum", start.ToString("s") },
+            { "importiertAbDatum", importiertAb.ToString("s") },
         };
 
         var url = BuildUrl("v2/artikel_stream", parameters);
@@ -64,7 +64,7 @@ public class MediaAccountCursorClient(HttpClient client)
         {
             return new ScrollResponse
             {
-                Liste = [],
+                Liste = Array.Empty<Article>(),
                 AnzahlGesamt = scroll.AnzahlGesamt,
                 NaechsterAbrufUrl = null,
                 NaechsterCursor = null

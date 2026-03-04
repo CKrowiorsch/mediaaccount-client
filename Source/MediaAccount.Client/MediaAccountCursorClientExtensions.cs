@@ -22,7 +22,7 @@ public static class MediaAccountCursorClientExtensions
             yield return new ArticleBatch(
                 response.Liste,
                 response.AnzahlGesamt,
-                response.AnzahlVerbleibed);
+                response.AnzahlVerblieben);
         }
 
         while (response.NaechsterAbrufUrl != null)
@@ -34,7 +34,7 @@ public static class MediaAccountCursorClientExtensions
                 yield return new ArticleBatch(
                     response.Liste,
                     response.AnzahlGesamt,
-                    response.AnzahlVerbleibed);
+                    response.AnzahlVerblieben);
             }
         }
     }
