@@ -17,11 +17,9 @@ public class MediaAccountCursorClient(HttpClient client)
 
     public async Task<ScrollResponse> SendRequest(DateTime importiertAb, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
     {
-        var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
-        {
-            { "anzahl", batchSize.ToString() },
-            { "importiertAbDatum", importiertAb.ToString("s") },
-        };
+        var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>());
+        parameters["anzahl"] = batchSize.ToString();
+        parameters["importiertAbDatum"] = importiertAb.ToString("s");
 
         var url = BuildUrl("v2/artikel_stream", parameters);
         var request = CreateRequest(url);
@@ -35,11 +33,9 @@ public class MediaAccountCursorClient(HttpClient client)
 
     public async Task<ScrollResponse> SendRequest(string cursor, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
     {
-        var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
-        {
-            { "anzahl", batchSize.ToString() },
-            { "cursor", cursor },
-        };
+        var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>());
+        parameters["anzahl"] = batchSize.ToString();
+        parameters["cursor"] = cursor;
 
         var url = BuildUrl("v2/artikel_stream", parameters);
         var request = CreateRequest(url);
