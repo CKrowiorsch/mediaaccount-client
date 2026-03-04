@@ -73,6 +73,9 @@ public class Article
     /// <summary> Statistische Daten </summary>
     public Engagement? Engagement { get; set; }
 
+    /// <summary> Liste der Medienspiegel, denen der Artikel zugeordnet ist </summary>
+    public Medienspiegel[]? Medienspiegel { get; set; }
+
     /// <summary> GAAW aus der Analyse </summary>
     public decimal? GewichteterAnzeigenaequivalenzwert { get; set; }
 
