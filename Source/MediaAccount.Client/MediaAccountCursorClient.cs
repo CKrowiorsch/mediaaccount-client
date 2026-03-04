@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using Krowiorsch.MediaAccount.Model.V2;
+﻿using Krowiorsch.MediaAccount.Model.V2;
 using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount;
@@ -108,11 +107,5 @@ public class MediaAccountCursorClient
         message.Headers.UserAgent.ParseAdd(_userAgent);
         message.Headers.Add("Accept", "application/json");
         return message;
-    }
-
-
-    public Task<Article> GetByIdAsync(string id)
-    {
-        throw new NotImplementedException();
     }
 }
