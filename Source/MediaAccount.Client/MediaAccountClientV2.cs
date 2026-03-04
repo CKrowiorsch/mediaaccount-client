@@ -38,7 +38,6 @@ public class MediaAccountClientV2 : IMediaAccountClient<Article>
         return new ArticleListScroll<Article>(this, MoveScroll) { NextPageLink = request };
     }
 
-
     internal async Task<bool> MoveScroll(ArticleListScroll<Article> scroll)
     {
         if (string.IsNullOrEmpty(scroll.NextPageLink))
