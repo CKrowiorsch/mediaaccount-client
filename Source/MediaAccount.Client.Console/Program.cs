@@ -67,7 +67,7 @@ public static class Program
         {
             batchCount++;
             Log.Debug("Batch {BatchNumber}: {Count} Articles, Gesamt: {Total}, Verbleibend: {Remaining}",
-                batchCount, batch.Articles.Length, batch.AnzahlGesamt, batch.AnzahlVerbleibed);
+                batchCount, batch.Articles.Length, batch.AnzahlGesamt, batch.AnzahlVerblieben);
 
             foreach (var article in batch.Articles)
             {
