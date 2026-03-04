@@ -16,6 +16,7 @@ public static class Program
     public static async Task Main()
     {
         Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
             .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss} [{Level:u3}]  {Message} {NewLine}{Exception}", theme: AnsiConsoleTheme.Code)
             .CreateLogger();
 
@@ -88,6 +89,9 @@ public static class Program
         await foreach (var article in client.GetArticlesAsync(startDate, 50, parameters))
         {
             count++;
+
+            Serilog.Log.Debug("Artikel: {Id} - Date:{Date} - Headline:{Headline}", article.Id, article.Importdatum, article.Inhalt.Headline);
+
             if (count % 50 == 0)
             {
                 Log.Debug("Processed {Count} articles so far...", count);
