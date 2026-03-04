@@ -12,7 +12,7 @@ namespace Krowiorsch.MediaAccount;
 public static class Program
 {
     static Uri BaseEndpoint = new Uri("http://api.media-account.de");
-    static int MaxCountPerScroll = 150;
+    static readonly int MaxCountPerScroll = 150;
 
     public static async Task Main()
     {
