@@ -12,6 +12,7 @@ namespace Krowiorsch.MediaAccount;
 public static class Program
 {
     static Uri BaseEndpoint = new Uri("http://api.media-account.de");
+    static int MaxCountPerScroll = 150;
 
     public static async Task Main()
     {
@@ -28,8 +29,8 @@ public static class Program
         for (var i = 0; i < 5; i++)
         {
             Log.Information("Start Iteration-{Iteration} - {Key}", i, keyProvider.Provide());
-            await MediaAccountV2Async(keyProvider.Provide());
             await MediaAccountCursorClientAsync(keyProvider.Provide());
+            await MediaAccountV2Async(keyProvider.Provide());
         }
 
         Console.Read();
@@ -76,6 +77,11 @@ public static class Program
             }
 
             count += batch.Articles.Length;
+
+            if (count >= MaxCountPerScroll)
+            {
+                break;
+            }
         }
 
         Log.Information("[CursorClient-Batches] Found {Count} Articles in {BatchCount} Batches (Dauer: {Duration} ms)",
@@ -95,6 +101,11 @@ public static class Program
             if (count % 50 == 0)
             {
                 Log.Debug("Processed {Count} articles so far...", count);
+            }
+            
+            if(count >= MaxCountPerScroll)
+            {
+                break;
             }
         }
 
