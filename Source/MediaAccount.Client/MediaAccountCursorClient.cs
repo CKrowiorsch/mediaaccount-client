@@ -1,10 +1,22 @@
-﻿using Krowiorsch.MediaAccount.Model.V2;
+﻿using System.Net.Http.Headers;
+using Krowiorsch.MediaAccount.Model.V2;
 using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount;
 
-public class MediaAccountCursorClient(HttpClient client)
+public class MediaAccountCursorClient
 {
+    readonly HttpClient _client;
+    readonly string _userAgent;
+
+    public MediaAccountCursorClient(HttpClient client)
+    {
+        _client = client ?? throw new ArgumentNullException(nameof(client));
+        _client.BaseAddress ??= Globals.EndpointProduction;
+        if (!_client.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.", nameof(client));
+        _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
+    }
+
     public record ScrollResponse
     {
         public long AnzahlGesamt { get; set; }
@@ -26,7 +38,7 @@ public class MediaAccountCursorClient(HttpClient client)
         var url = BuildUrl("v2/artikel_stream", parameters);
         var request = CreateRequest(url);
 
-        using var response = await client.SendAsync(request, cancellation);
+        using var response = await _client.SendAsync(request, cancellation);
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
@@ -44,7 +56,7 @@ public class MediaAccountCursorClient(HttpClient client)
         var url = BuildUrl("v2/artikel_stream", parameters);
         var request = CreateRequest(url);
 
-        using var response = await client.SendAsync(request, cancellation);
+        using var response = await _client.SendAsync(request, cancellation);
 
         response.EnsureSuccessStatusCode();
 
@@ -72,7 +84,7 @@ public class MediaAccountCursorClient(HttpClient client)
         }
         var request = CreateRequest(scroll.NaechsterAbrufUrl);
 
-        using var response = await client.SendAsync(request, cancellation);
+        using var response = await _client.SendAsync(request, cancellation);
 
         response.EnsureSuccessStatusCode();
         var json = await response.Content.ReadAsStringAsync();
@@ -90,8 +102,13 @@ public class MediaAccountCursorClient(HttpClient client)
         return $"{path}?{queryString}";
     }
 
-    static HttpRequestMessage CreateRequest(string url)
-        => new(HttpMethod.Get, url);
+    HttpRequestMessage CreateRequest(string url)
+    {
+        var message = new HttpRequestMessage(HttpMethod.Get, url);
+        message.Headers.UserAgent.ParseAdd(_userAgent);
+        message.Headers.Add("Accept", "application/json");
+        return message;
+    }
 
 
     public Task<Article> GetByIdAsync(string id)
