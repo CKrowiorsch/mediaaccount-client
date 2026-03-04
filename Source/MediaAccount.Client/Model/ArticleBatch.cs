@@ -4,14 +4,14 @@ namespace Krowiorsch.MediaAccount.Model;
 
 public class ArticleBatch
 {
-    public ArticleBatch(Article[] articles, long anzahlGesamt, long anzahlVerbleibed)
+    public ArticleBatch(Article[] articles, long anzahlGesamt, long anzahlVerblieben)
     {
         Articles = articles;
         AnzahlGesamt = anzahlGesamt;
-        AnzahlVerbleibed = anzahlVerbleibed;
+        AnzahlVerblieben = anzahlVerblieben;
     }
 
     public Article[] Articles { get; }
     public long AnzahlGesamt { get; }
-    public long AnzahlVerbleibed { get; }
+    public long AnzahlVerblieben { get; }
 }

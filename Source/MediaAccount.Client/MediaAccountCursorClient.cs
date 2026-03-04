@@ -31,8 +31,8 @@ public class MediaAccountCursorClient
     {
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
-            { "anzahl", batchSize.ToString() },
-            { "importiertAbDatum", importiertAb.ToString("s") },
+            ["anzahl"] = batchSize.ToString(),
+            ["importiertAbDatum"] = importiertAb.ToString("s")
         };
 
         var url = BuildUrl("v2/artikel_stream", parameters);
@@ -49,8 +49,8 @@ public class MediaAccountCursorClient
     {
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
-            { "anzahl", batchSize.ToString() },
-            { "cursor", cursor },
+            ["anzahl"] = batchSize.ToString(),
+            ["cursor"] = cursor
         };
 
         var url = BuildUrl("v2/artikel_stream", parameters);
@@ -67,7 +67,7 @@ public class MediaAccountCursorClient
     static ScrollResponse DeserializeResponse(string json)
     {
         return JsonConvert.DeserializeObject<ScrollResponse>(json)
-               ?? throw new InvalidProgramException("Result kein gültiges Json");
+               ?? throw new JsonSerializationException("Result kein gültiges Json");
     }
 
     public async Task<ScrollResponse> SendRequest(ScrollResponse scroll, CancellationToken cancellation)

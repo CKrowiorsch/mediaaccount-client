@@ -25,7 +25,7 @@ public static class MediaAccountCursorClientExtensions
                 response.AnzahlVerblieben);
         }
 
-        while (response.NaechsterAbrufUrl != null)
+        while (!string.IsNullOrEmpty(response.NaechsterAbrufUrl))
         {
             response = await client.SendRequest(response, cancellation);
 
