@@ -129,7 +129,7 @@ public static class Program
         var client = new IntializeClient().GetClientV2(httpClient);
 
         var count = 0;
-        var response = client.CreateScroll(RequestDateType.Updatedatum, DateTime.Now.Date.AddDays(-14),
+        var response = client.CreateScroll(key, RequestDateType.Updatedatum, DateTime.Now.Date.AddDays(-14),
             DateTime.Now.AddMinutes(-5), 50, "&lm_internerZugriff=true");
 
         while (await response.Next())

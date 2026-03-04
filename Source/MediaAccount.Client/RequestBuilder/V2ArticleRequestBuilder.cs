@@ -1,11 +1,9 @@
-﻿using System.Net.Http;
-
-namespace Krowiorsch.MediaAccount.RequestBuilder
+﻿namespace Krowiorsch.MediaAccount.RequestBuilder
 {
     public class V2ArticleRequestBuilder : BaseRequestBuilder
     {
-        public V2ArticleRequestBuilder(Uri endpoint)
-            : base(endpoint)
+        public V2ArticleRequestBuilder(Uri endpoint, string apiKey)
+            : base(endpoint, apiKey)
         {
         }
 
@@ -28,6 +26,4 @@ namespace Krowiorsch.MediaAccount.RequestBuilder
             return (long)ts;
         }
     }
-
-
 }
