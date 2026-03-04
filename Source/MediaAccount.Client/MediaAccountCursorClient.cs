@@ -55,7 +55,7 @@ public class MediaAccountCursorClient(HttpClient client)
     static ScrollResponse DeserializeResponse(string json)
     {
         return JsonConvert.DeserializeObject<ScrollResponse>(json)
-               ?? throw new InvalidProgramException("Result kein gültiges Json");
+               ?? throw new JsonSerializationException("Result kein gültiges Json");
     }
 
     public async Task<ScrollResponse> SendRequest(ScrollResponse scroll, CancellationToken cancellation)
