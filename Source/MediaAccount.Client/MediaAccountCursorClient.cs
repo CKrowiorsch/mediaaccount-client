@@ -31,6 +31,8 @@ public class MediaAccountCursorClient
 
     public async Task<ScrollResponse> SendRequest(string apiKey, DateTime importiertAb, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
     {
+        EnsureApiKey(apiKey);
+
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
             ["anzahl"] = batchSize.ToString(),
@@ -47,8 +49,16 @@ public class MediaAccountCursorClient
         return DeserializeResponse(json) with { ApiKey = apiKey };
     }
 
+    static void EnsureApiKey(string apiKey)
+    {
+        if (string.IsNullOrEmpty(apiKey))
+            throw new ArgumentException("ApiKey darf nicht null oder leer sein.", nameof(apiKey));
+    }
+
     public async Task<ScrollResponse> SendRequest(string apiKey, string cursor, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
     {
+        EnsureApiKey(apiKey);
+
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
             ["anzahl"] = batchSize.ToString(),
@@ -74,8 +84,7 @@ public class MediaAccountCursorClient
 
     public async Task<ScrollResponse> SendRequest(ScrollResponse scroll, CancellationToken cancellation)
     {
-        if (string.IsNullOrEmpty(scroll.ApiKey))
-            throw new ArgumentException("ApiKey darf nicht null oder leer sein.", nameof(scroll.ApiKey));
+        EnsureApiKey(scroll.ApiKey);
 
         if (scroll.NaechsterAbrufUrl is null)
         {
