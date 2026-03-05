@@ -10,12 +10,13 @@ public static class MediaAccountCursorClientExtensions
 {
     public static async IAsyncEnumerable<ArticleBatch> GetArticleBatchesAsync(
         this MediaAccountCursorClient client,
+        string apiKey,
         DateTime start,
         int batchSize,
         IDictionary<string, string>? parameter = null,
         [EnumeratorCancellation] CancellationToken cancellation = default)
     {
-        var response = await client.SendRequest(start, batchSize, parameter, cancellation);
+        var response = await client.SendRequest(apiKey, start, batchSize, parameter, cancellation);
 
         if (response.Liste is { Length: > 0 })
         {
@@ -41,12 +42,13 @@ public static class MediaAccountCursorClientExtensions
 
     public static async IAsyncEnumerable<Article> GetArticlesAsync(
         this MediaAccountCursorClient client,
+        string apiKey,
         DateTime start,
         int batchSize,
         IDictionary<string, string>? parameter = null,
         [EnumeratorCancellation] CancellationToken cancellation = default)
     {
-        await foreach (var batch in client.GetArticleBatchesAsync(start, batchSize, parameter, cancellation))
+        await foreach (var batch in client.GetArticleBatchesAsync(apiKey, start, batchSize, parameter, cancellation))
         {
             foreach (var article in batch.Articles)
             {

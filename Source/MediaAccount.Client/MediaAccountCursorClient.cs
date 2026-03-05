@@ -12,7 +12,6 @@ public class MediaAccountCursorClient
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
         _client.BaseAddress ??= Globals.EndpointProduction;
-        if (!_client.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.", nameof(client));
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
@@ -24,10 +23,16 @@ public class MediaAccountCursorClient
         public string? NaechsterAbrufUrl { get; set; }
 
         public Article[]? Liste { get; set; }
+
+        // ApiKey ist nicht Teil der API-Antwort, sondern wird hier für die interne Verwendung hinzugefügt, um den Schlüssel für die nächsten Anfragen zu speichern.
+        [JsonIgnore]
+        public string ApiKey { get; internal set; } = null!;
     }
 
-    public async Task<ScrollResponse> SendRequest(DateTime importiertAb, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
+    public async Task<ScrollResponse> SendRequest(string apiKey, DateTime importiertAb, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
     {
+        EnsureApiKey(apiKey);
+
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
             ["anzahl"] = batchSize.ToString(),
@@ -35,17 +40,25 @@ public class MediaAccountCursorClient
         };
 
         var url = BuildUrl("v2/artikel_stream", parameters);
-        var request = CreateRequest(url);
+        var request = CreateRequest(url, apiKey);
 
         using var response = await _client.SendAsync(request, cancellation);
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
-        return DeserializeResponse(json);
+        return DeserializeResponse(json) with { ApiKey = apiKey };
     }
 
-    public async Task<ScrollResponse> SendRequest(string cursor, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
+    static void EnsureApiKey(string apiKey)
     {
+        if (string.IsNullOrEmpty(apiKey))
+            throw new ArgumentException("ApiKey darf nicht null oder leer sein.", nameof(apiKey));
+    }
+
+    public async Task<ScrollResponse> SendRequest(string apiKey, string cursor, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
+    {
+        EnsureApiKey(apiKey);
+
         var parameters = new Dictionary<string, string>(parameter ?? new Dictionary<string, string>())
         {
             ["anzahl"] = batchSize.ToString(),
@@ -53,14 +66,14 @@ public class MediaAccountCursorClient
         };
 
         var url = BuildUrl("v2/artikel_stream", parameters);
-        var request = CreateRequest(url);
+        var request = CreateRequest(url, apiKey);
 
         using var response = await _client.SendAsync(request, cancellation);
 
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
-        return DeserializeResponse(json);
+        return DeserializeResponse(json) with { ApiKey = apiKey };
     }
 
     static ScrollResponse DeserializeResponse(string json)
@@ -71,6 +84,8 @@ public class MediaAccountCursorClient
 
     public async Task<ScrollResponse> SendRequest(ScrollResponse scroll, CancellationToken cancellation)
     {
+        EnsureApiKey(scroll.ApiKey);
+
         if (scroll.NaechsterAbrufUrl is null)
         {
             return new ScrollResponse
@@ -81,13 +96,13 @@ public class MediaAccountCursorClient
                 NaechsterCursor = null
             };
         }
-        var request = CreateRequest(scroll.NaechsterAbrufUrl);
+        var request = CreateRequest(scroll.NaechsterAbrufUrl, scroll.ApiKey);
 
         using var response = await _client.SendAsync(request, cancellation);
 
         response.EnsureSuccessStatusCode();
         var json = await response.Content.ReadAsStringAsync();
-        return DeserializeResponse(json);
+        return DeserializeResponse(json) with { ApiKey = scroll.ApiKey };
     }
 
     static string BuildUrl(string path, Dictionary<string, string>? parameters)
@@ -101,11 +116,12 @@ public class MediaAccountCursorClient
         return $"{path}?{queryString}";
     }
 
-    HttpRequestMessage CreateRequest(string url)
+    HttpRequestMessage CreateRequest(string url, string apiKey)
     {
         var message = new HttpRequestMessage(HttpMethod.Get, url);
         message.Headers.UserAgent.ParseAdd(_userAgent);
         message.Headers.Add("Accept", "application/json");
+        message.Headers.Add("api_key", apiKey);
         return message;
     }
 }
