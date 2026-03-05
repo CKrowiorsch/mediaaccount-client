@@ -40,7 +40,7 @@ public static class Program
     static async Task MediaAccountCursorClientAsync(string key)
     {
         var duration = Stopwatch.StartNew();
-        using var httpClient = new HttpClient();
+        using var httpClient = new HttpClient { BaseAddress = BaseEndpoint };
 
         var client = new IntializeClient().GetCursorClient(httpClient);
 
