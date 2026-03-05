@@ -30,25 +30,31 @@ public class Article
     public string Mediengattung { get; set; } = null!;
 
     /// <summary> Medienart (Internet-Publikation, Anzeigenblatt usw.) </summary>
-    [Obsolete("Diese Medienart wird nicht mehr verwendet - sie ist nur für Backwardcompatibilität. Bitte verwenden Sie MedienartMediaAccount.")]
+    [Obsolete("Diese Medienart wird nicht mehr verwendet - sie ist nur für Abwärtskompatibilität. Bitte verwenden Sie MedienartMediaAccount.")]
     public string Medienart { get; set; } = null!;
 
-    /// <summary> Mediengattung </summary>
+    /// <summary> Mediengattung (wird in Accountsprache übersetzt) </summary>
     public string MediengattungMediaAccount { get; set; } = null!;
 
-    /// <summary> Medienart  </summary>
+    /// <summary> Medienart (wird in Accountsprache übersetzt) </summary>
     public string MedienartMediaAccount { get; set; } = null!;
 
     /// <summary> Link auf ein Preview (Radio-Preview, TV-Preview usw) </summary>
     public string? PreviewLink { get; set; }
 
+    /// <summary> Link auf die Onlineversion des Artikels. Dieser Link ist abhängig von der Verfügbarkeit der Onlineversion und kann daher null sein. Es wird empfohlen, die Verfügbarkeit der Onlineversion vor der Verwendung dieses Links zu überprüfen. </summary>
     public string? Deeplink { get; set; }
     public string? Seite { get; set; }
     public string? PositionAufSeite { get; set; }
     public string? Genre { get; set; }
+
+    /// <summary> Farbigkeit des Artikels. Werte: sw, 1c, 2c, 3c (wird für die Berechnung des AÄW genutzt) </summary>
     public string? Farbigkeit { get; set; }
+
+    /// <summary> Anzeigenaequivalenzwert des Artikels. Dieser Wert wird für die Berechnung des gewichteten Anzeigenaequivalenzwerts (GAAW) genutzt. Er gibt an, wie viel der Artikel in der jeweiligen Publikation kosten würde, wenn er eine Anzeige wäre. Der Wert kann je nach Mediengattung unterschiedlich berechnet werden. Es wird empfohlen, diesen Wert nicht direkt zu verwenden, sondern den GAAW zu nutzen, da dieser bereits die Gewichtung der Mediengattung berücksichtigt. </summary>
     public double? Anzeigenaequivalenzwert { get; set; }
     public double? Artikelgroesse { get; set; }
+
     public bool IsHaupttreffer { get; set; }
     public int? HaupttrefferId { get; set; }
 
