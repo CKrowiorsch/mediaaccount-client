@@ -74,6 +74,9 @@ public class MediaAccountCursorClient
 
     public async Task<ScrollResponse> SendRequest(ScrollResponse scroll, CancellationToken cancellation)
     {
+        if (string.IsNullOrEmpty(scroll.ApiKey))
+            throw new ArgumentException("ApiKey darf nicht null oder leer sein.", nameof(scroll.ApiKey));
+
         if (scroll.NaechsterAbrufUrl is null)
         {
             return new ScrollResponse
