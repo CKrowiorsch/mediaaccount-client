@@ -40,14 +40,7 @@ public static class Program
     static async Task MediaAccountCursorClientAsync(string key)
     {
         var duration = Stopwatch.StartNew();
-        using var httpClient = new HttpClient
-        {
-            BaseAddress = BaseEndpoint,
-            DefaultRequestHeaders =
-            {
-                {"api_key", key}
-            }
-        };
+        using var httpClient = new HttpClient();
 
         var client = new IntializeClient().GetCursorClient(httpClient);
 
@@ -64,7 +57,7 @@ public static class Program
 
         Log.Information("Testing CursorClient with IAsyncEnumerable (Batches)");
 
-        await foreach (var batch in client.GetArticleBatchesAsync(startDate, 50, parameters))
+        await foreach (var batch in client.GetArticleBatchesAsync(key, startDate, 50, parameters))
         {
             batchCount++;
             Log.Debug("Batch {BatchNumber}: {Count} Articles, Gesamt: {Total}, Verbleibend: {Remaining}",
@@ -92,7 +85,7 @@ public static class Program
 
         Log.Information("Testing CursorClient with IAsyncEnumerable (Single Articles)");
 
-        await foreach (var article in client.GetArticlesAsync(startDate, 50, parameters))
+        await foreach (var article in client.GetArticlesAsync(key, startDate, 50, parameters))
         {
             count++;
 
