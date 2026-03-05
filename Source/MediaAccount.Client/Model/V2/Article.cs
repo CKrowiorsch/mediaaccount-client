@@ -30,7 +30,7 @@ public class Article
     public string Mediengattung { get; set; } = null!;
 
     /// <summary> Medienart (Internet-Publikation, Anzeigenblatt usw.) </summary>
-    [Obsolete("Diese Medienart wird nicht mehr verwendet - sie ist nur für Backwardcompatibilität. Bitte verwenden Sie MedienartMediaAccount.")]
+    [Obsolete("Diese Medienart wird nicht mehr verwendet - sie ist nur für Abwärtskompatibilität. Bitte verwenden Sie MedienartMediaAccount.")]
     public string Medienart { get; set; } = null!;
 
     /// <summary> Mediengattung </summary>
