@@ -42,10 +42,10 @@ public class MediaAccountCursorClient
         var url = BuildUrl("v2/artikel_stream", parameters);
         var request = CreateRequest(url, apiKey);
 
-        using var response = await _client.SendAsync(request, cancellation);
+        using var response = await _client.SendAsync(request, cancellation).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
-        var json = await response.Content.ReadAsStringAsync();
+        var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         return DeserializeResponse(json) with { ApiKey = apiKey };
     }
 
@@ -68,11 +68,11 @@ public class MediaAccountCursorClient
         var url = BuildUrl("v2/artikel_stream", parameters);
         var request = CreateRequest(url, apiKey);
 
-        using var response = await _client.SendAsync(request, cancellation);
+        using var response = await _client.SendAsync(request, cancellation).ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
 
-        var json = await response.Content.ReadAsStringAsync();
+        var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         return DeserializeResponse(json) with { ApiKey = apiKey };
     }
 
@@ -98,10 +98,10 @@ public class MediaAccountCursorClient
         }
         var request = CreateRequest(scroll.NaechsterAbrufUrl, scroll.ApiKey);
 
-        using var response = await _client.SendAsync(request, cancellation);
+        using var response = await _client.SendAsync(request, cancellation).ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
-        var json = await response.Content.ReadAsStringAsync();
+        var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         return DeserializeResponse(json) with { ApiKey = scroll.ApiKey };
     }
 
