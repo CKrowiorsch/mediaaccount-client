@@ -29,14 +29,14 @@ public class Article
     [Obsolete("Diese Mediengattung wird nicht mehr verwendet - sie ist nur für Abwärtskompatibilität. Bitte verwenden Sie MediengattungMediaAccount.")]
     public string Mediengattung { get; set; } = null!;
 
-    /// <summary> Mediengattung (Internet-Publikation, Anzeigenblatt usw) </summary>
-    [Obsolete("Diese Medienart wird nicht mehr verwendet - sie ist nur für Abwärtskompatibilität. Bitte verwenden Sie MedienartMediaAccount.")]
+    /// <summary> Medienart (Internet-Publikation, Anzeigenblatt usw.) </summary>
+    [Obsolete("Diese Medienart wird nicht mehr verwendet - sie ist nur für Backwardcompatibilität. Bitte verwenden Sie MedienartMediaAccount.")]
     public string Medienart { get; set; } = null!;
 
     /// <summary> Mediengattung </summary>
     public string MediengattungMediaAccount { get; set; } = null!;
 
-    /// <summary> Mediengattung  </summary>
+    /// <summary> Medienart  </summary>
     public string MedienartMediaAccount { get; set; } = null!;
 
     /// <summary> Link auf ein Preview (Radio-Preview, TV-Preview usw) </summary>
