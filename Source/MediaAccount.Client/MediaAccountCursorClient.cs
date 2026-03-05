@@ -25,7 +25,8 @@ public class MediaAccountCursorClient
         public Article[]? Liste { get; set; }
 
         // ApiKey ist nicht Teil der API-Antwort, sondern wird hier für die interne Verwendung hinzugefügt, um den Schlüssel für die nächsten Anfragen zu speichern.
-        public string ApiKey { get; set; } = null!;
+        [JsonIgnore]
+        public string ApiKey { get; internal set; } = null!;
     }
 
     public async Task<ScrollResponse> SendRequest(string apiKey, DateTime importiertAb, int batchSize, IDictionary<string, string>? parameter = null, CancellationToken cancellation = default)
