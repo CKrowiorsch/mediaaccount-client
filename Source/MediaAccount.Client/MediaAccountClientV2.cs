@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using Krowiorsch.MediaAccount.Model;
+﻿using Krowiorsch.MediaAccount.Model;
 using Krowiorsch.MediaAccount.Model.V2;
 using Krowiorsch.MediaAccount.RequestBuilder;
 using Newtonsoft.Json;
@@ -17,7 +16,6 @@ public class MediaAccountClientV2 : IMediaAccountClient<Article>
     {
         _httpClient = client ?? throw new ArgumentNullException(nameof(client));
         _httpClient.BaseAddress ??= Globals.EndpointProduction;
-        if (!_httpClient.DefaultRequestHeaders.Contains("api_key")) throw new ArgumentException("Api key is missing in the HttpClient headers.", nameof(client));
         _userAgent = $"MediaAccountClient ({GetType().Assembly.GetName().Version})";
     }
 
