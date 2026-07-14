@@ -45,8 +45,8 @@ public class Publikation
     public Redaktion? Redaktion { get; set; }
 
     [Description("WEMF-Gebiet der Redaktion in der Schweiz sofern bekannt")]
-    public string? WEMFGebiet { get; set; }
+    public string? WemfGebiet  { get; set; }
 
     [Description("WEMF-Region (Schweiz), die dem WEMF-Gebiet zugeordnet ist, sofern bekannt")]
-    public string? WEMFRegion { get; set; }
+    public string? WemfRegion { get; set; }
 }

@@ -32,6 +32,7 @@ public static class Program
             await MediaAccountCursorClientAsync(keyProvider.Provide());
             await MediaAccountV2Async(keyProvider.Provide());
 
+            // Delay between iterations to avoid throttling/rate limits
             await Task.Delay(TimeSpan.FromSeconds(5));
         }
 
