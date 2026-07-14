@@ -31,6 +31,9 @@ public static class Program
             Log.Information("Start Iteration-{Iteration} - {Key}", i, keyProvider.Provide());
             await MediaAccountCursorClientAsync(keyProvider.Provide());
             await MediaAccountV2Async(keyProvider.Provide());
+
+            // Delay between iterations to avoid throttling/rate limits
+            await Task.Delay(TimeSpan.FromSeconds(5));
         }
 
         Console.Read();
