@@ -1,4 +1,6 @@
-﻿namespace Krowiorsch.MediaAccount.Model.V2;
+﻿using System.ComponentModel;
+
+namespace Krowiorsch.MediaAccount.Model.V2;
 
 public class Publikation
 {
@@ -41,4 +43,10 @@ public class Publikation
     public string? LandNameEnglisch { get; set; }
     public Verlag? Verlag { get; set; }
     public Redaktion? Redaktion { get; set; }
+
+    [Description("WEMF-Gebiet der Redaktion in der Schweiz sofern bekannt")]
+    public string? WEMFGebiet { get; set; }
+
+    [Description("WEMF-Region (Schweiz), die dem WEMF-Gebiet zugeordnet ist, sofern bekannt")]
+    public string? WEMFRegion { get; set; }
 }

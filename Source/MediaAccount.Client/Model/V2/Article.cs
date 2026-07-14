@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Krowiorsch.MediaAccount.Model.V2;
 
@@ -92,6 +93,9 @@ public class Article
 
     /// <summary> GAAW aus der Analyse </summary>
     public decimal? GewichteterAnzeigenaequivalenzwert { get; set; }
+
+    [Description("Anteil des Suchbegriffs am Artikel in Prozent sofern erfasst.")]
+    public double? InhaltlicherAnteilInProzent { get; set; }
 
     [JsonExtensionData(ReadData = true, WriteData = false)]
     public Dictionary<string, object> Unmapped { get; set; } = new();
