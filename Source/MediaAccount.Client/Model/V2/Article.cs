@@ -97,6 +97,6 @@ public class Article
     [Description("Anteil des Suchbegriffs am Artikel in Prozent sofern erfasst.")]
     public double? InhaltlicherAnteilInProzent { get; set; }
 
-    [JsonExtensionData(ReadData = true, WriteData = false)]
+    [JsonExtensionData(ReadData = true, WriteData = true)]
     public Dictionary<string, object> Unmapped { get; set; } = new();
 }
